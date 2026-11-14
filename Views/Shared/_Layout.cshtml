@@ -139,12 +139,11 @@
                 </a>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a href="#">
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Index">
                         Admine'e Git
                     </a>    
                 }
                 
-
             </a>
             <span class="nav-divider"></span>
             <a href="#" title="Oyun Dünyası Seni Bekliyor">

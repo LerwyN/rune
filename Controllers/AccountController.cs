@@ -72,6 +72,7 @@ namespace RUNE.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "User");
                 await _signInManager.SignInAsync(user, false);
                 TempData["SuccessTitle"] = "Başarılı";
                 TempData["SuccessMessage"] = "Hesabın oluşturuldu.";

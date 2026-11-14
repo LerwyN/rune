@@ -56,6 +56,17 @@ using (var scope = app.Services.CreateScope())
         startupLockAcquired = true;
 
         await context.Database.MigrateAsync();
+        var roleManager = scope.ServiceProvider
+            .GetRequiredService<RoleManager<IdentityRole>>();
+            
+        string[] roles = { "User", "Admin" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
         await GameSeeder.SeedAsync(context);
         await ReleaseNoteSeeder.SeedAsync(context, currentVersion);
     }

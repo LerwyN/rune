@@ -18,11 +18,21 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Genre> Genres => Set<Genre>();
     public DbSet<Tag> Tags => Set<Tag>();
 
+    public DbSet<CartItem> CartItems => Set<CartItem>();
+
+    #region 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Game>()
             .HasIndex(game => game.Slug)
             .IsUnique();
+
+        // Aynı oyun aynı kullanıcının sepetine iki kez eklenemesin
+        modelBuilder.Entity<CartItem>()
+        .HasIndex(c => new { c.UserId, c.GameId })
+        .IsUnique();
     }
+    
+    #endregion
 }

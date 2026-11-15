@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="icon" href="/images/icons/RuneDarkIcon.png">
+    <link rel="icon" href="/images/icons/RuneGamesStoreWebIcon.png">
 </head>
 
 <body>
@@ -37,7 +37,7 @@
         <div class="navbar-container">
             <div class="navbar-logo">
                 <a class="rune-icon" asp-controller="Home" asp-action="Index" aria-label="Rune mağazasına dön">
-                    <img src="/images/icons/RuneStore.png" alt="rune">
+                    <img src="/images/icons/RuneGamesStoreIcon.png" alt="rune">
                 </a>
             </div>
             <nav class="navbar-middle">
@@ -140,7 +140,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <a asp-area="Admin" asp-controller="Admin" asp-action="Index" target="_blank" rel="noopener noreferrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
                              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-up-right">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -381,7 +381,7 @@
                         fill="#FFFFFF" stroke-width="1"></path>
                     </svg>
                 </a>
-                <a href="https://github.com/LerwyN/Rune-Game-Platform" aria-label="GitHub" title="GitHub">
+                <a href="https://github.com/LerwyN/rune" aria-label="GitHub" title="GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          id="Github-Logo-2--Streamline-Logos" height="24" width="24">
                         <path fill="#FFFFFF"
@@ -419,8 +419,8 @@
             </div>
         </div>
         <div class="rune-footer-main">
-            <div class="rune-footer-about ">
-                <h3>Geleceğin oyun dünyasına hoş geldin.</h3>
+            <div class="rune-footer-about">
+                <img src="/images/icons/Vault.png" alt="vault games" width="160px" height="">
                 <p>
                     Rune; bağımsız yapımlardan devasa bütçeli hitlere kadar binlerce oyunu tek bir çatı altında toplayan
                     yeni nesil dijital oyun platformudur. Kütüphaneni dilediğin gibi yönet, atölye desteğiyle oyunlarını
@@ -466,14 +466,12 @@
                 markalarıdır.</p>
 
                 <div class="rune-footer-bottom-right">
-                    <span>Vault Games Tarafından Geliştirilmiştir.</span>
                     <a asp-controller="Home" asp-action="Privacy">Gizlilik</a>
                     <a href="#">Koşullar</a>
                     <span>TR · Türkiye</span>
 
                     <button type="button" class="rune-back-to-top"
                             onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
-                        <span>↑</span>
                         Yukarı çık
                     </button>
                 </div>

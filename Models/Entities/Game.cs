@@ -2,7 +2,6 @@ using System;
 using RUNE.Models.Entities;
 
 namespace RUNE.Models;
-
 public class Game
 {   
     public int Id { get; set; }
@@ -21,4 +20,5 @@ public class Game
     public ICollection<Tag> Tag { get; set; } = [];
     public ICollection<GameImage> Images { get; set; } = [];
     public ICollection<GameVideo> Videos { get; set; } = [];
+    public GameSystemRequirement? SystemRequirement { get; set; }
 }

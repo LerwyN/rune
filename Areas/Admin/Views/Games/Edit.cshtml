@@ -1,4 +1,3 @@
-
 @model RUNE.Models.Game
 @{
     ViewData["Title"] = "Oyunu Düzenle";
@@ -252,6 +251,7 @@
     }
 
     @@media (max-width: 750px) {
+
         .form-grid,
         .media-grid {
             grid-template-columns: 1fr;
@@ -280,6 +280,232 @@
             text-align: center;
         }
     }
+
+    .genre-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .genre-picker label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    #genreSearch {
+        width: 100%;
+        padding: 13px 14px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        outline: none;
+        font-size: 13px;
+    }
+
+    #genreSearch:focus {
+        border-color: #888;
+    }
+
+    .genre-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        padding: 15px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 8px;
+        max-height: 220px;
+        overflow-y: auto;
+    }
+
+    .genre-option {
+        padding: 9px 12px;
+        background: #252525;
+        border: 1px solid #383838;
+        border-radius: 6px;
+        color: #aaa;
+        font-size: 11px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .genre-option:hover {
+        background: #333;
+        color: #fff;
+    }
+
+    .genre-option.selected {
+        background: #fff;
+        border-color: #fff;
+        color: #111;
+    }
+
+    .selected-genre-heading {
+        margin-top: 8px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .selected-genres {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        min-height: 34px;
+    }
+
+    .genre-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 11px;
+        background: #292929;
+        border: 1px solid #414141;
+        border-radius: 6px;
+        color: #eee;
+        font-size: 11px;
+    }
+
+    .genre-chip button {
+        border: none;
+        background: transparent;
+        color: #999;
+        font-size: 17px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .genre-chip button:hover {
+        color: #ff7777;
+    }
+
+    .genre-empty {
+        color: #888;
+        font-size: 12px;
+    }
+
+
+    .multi-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .multi-picker>label {
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .picker-search {
+        width: 100%;
+        padding: 13px 14px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+        transition: .2s;
+    }
+
+    .picker-search:focus {
+        border-color: #888;
+        background: #222;
+    }
+
+    .picker-search::placeholder {
+        color: #707070;
+    }
+
+    .picker-options {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 8px;
+        min-height: 58px;
+        max-height: 180px;
+        overflow-y: auto;
+        padding: 12px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 8px;
+    }
+
+    .picker-option {
+        padding: 8px 11px;
+        background: #252525;
+        border: 1px solid #383838;
+        border-radius: 6px;
+        color: #aaa;
+        font-size: 11px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .picker-option:hover {
+        background: #333;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .picker-option.selected {
+        background: #fff;
+        border-color: #fff;
+        color: #111;
+    }
+
+    .picker-selected-title {
+        margin-top: 5px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .picker-selected {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-height: 28px;
+    }
+
+    .picker-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 10px;
+        background: #292929;
+        border: 1px solid #414141;
+        border-radius: 6px;
+        color: #eee;
+        font-size: 11px;
+    }
+
+    .picker-chip button {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #999;
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .picker-chip button:hover {
+        color: #ff7777;
+    }
+
+    .picker-empty {
+        width: 100%;
+        color: #777;
+        font-size: 11px;
+        padding: 5px 2px;
+    }
 </style>
 
 <div class="create-page">
@@ -290,20 +516,14 @@
             <p>@Model.Title oyununa ait bilgileri güncelle.</p>
         </div>
 
-        <a asp-area="Admin"
-           asp-controller="Games"
-           asp-action="Index"
-           class="back-link">
+        <a asp-area="Admin" asp-controller="Games" asp-action="Index" class="back-link">
             ← Oyunlara dön
         </a>
     </div>
 
-    <form asp-area="Admin"
-          asp-controller="Games"
-          asp-action="Edit"
-          asp-route-id="@Model.Id"
-          method="post"
+    <form asp-area="Admin" asp-controller="Games" asp-action="Edit" asp-route-id="@Model.Id" method="post"
           enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
         <input type="hidden" asp-for="Id" />
 
@@ -381,30 +601,52 @@
             </div>
         </section>
 
-        <!-- Türler -->
+        <!-- Türler ve Etiketler -->
         <section class="form-section">
 
             <div class="section-header">
-                <h2>Oyun Türleri</h2>
-                <p>Oyuna atanmış mevcut türler.</p>
+                <h2>Kategoriler ve Oyun Özellikleri</h2>
+                <p>Oyunun türlerini ve etiketlerini birbirinden bağımsız seç veya kaldır.</p>
             </div>
 
-            <div class="genre-list">
-                @if (Model.Genre.Any())
-                {
-                    @foreach (var genre in Model.Genre)
-                    {
-                        <span class="genre-item">@genre.Name</span>
-                    }
-                }
-                else
-                {
-                    <span style="color:#888;font-size:12px;">
-                        Henüz tür atanmamış.
-                    </span>
-                }
-            </div>
+            <div class="form-grid">
 
+                <div class="form-group">
+                    <div class="multi-picker" data-picker="genres">
+                        <label for="genreSearch">Oyun Türleri</label>
+
+                        <input type="search" id="genreSearch" class="picker-search" placeholder="Oyun türü ara..."
+                               autocomplete="off" />
+
+                        <div class="picker-options" id="genreOptions"></div>
+
+                        <div class="picker-selected-title">Seçilen Türler</div>
+                        <div class="picker-selected" id="selectedGenres"></div>
+
+                        <select id="genreSelectSource" name="genreIds" asp-items="ViewBag.Genres" multiple hidden>
+                        </select>
+
+                        <small>Türleri listeden seçebilir veya seçimin yanındaki × ile kaldırabilirsin.</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="multi-picker" data-picker="tags">
+                        <label for="tagSearch">Oyun Etiketleri</label>
+
+                        <input type="search" id="tagSearch" class="picker-search" placeholder="Etiket ara..."
+                               autocomplete="off" />
+
+                        <div class="picker-options" id="tagOptions"></div>
+
+                        <div class="picker-selected-title">Seçilen Etiketler</div>
+                        <div class="picker-selected" id="selectedTags"></div>
+
+                        <select id="tagSelectSource" name="tagIds" asp-items="ViewBag.Tags" multiple hidden>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Kapak ve Banner -->
@@ -422,9 +664,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(Model.CoverImagePath))
                     {
-                        <img src="@Model.CoverImagePath"
-                             class="current-image"
-                             alt="Mevcut kapak görseli" />
+                        <img src="@Model.CoverImagePath" class="current-image" alt="Mevcut kapak görseli" />
                     }
                     else
                     {
@@ -435,9 +675,7 @@
 
                     <div class="media-input">
                         <label for="CoverImageFile">Yeni kapak dosyası</label>
-                        <input type="file"
-                               id="CoverImageFile"
-                               name="CoverImageFile"
+                        <input type="file" id="CoverImageFile" name="CoverImageFile"
                                accept="image/jpeg,image/png,image/webp" />
                     </div>
 
@@ -452,9 +690,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(Model.BannerImagePath))
                     {
-                        <img src="@Model.BannerImagePath"
-                             class="current-image"
-                             alt="Mevcut banner görseli" />
+                        <img src="@Model.BannerImagePath" class="current-image" alt="Mevcut banner görseli" />
                     }
                     else
                     {
@@ -465,9 +701,7 @@
 
                     <div class="media-input">
                         <label for="BannerImageFile">Yeni banner dosyası</label>
-                        <input type="file"
-                               id="BannerImageFile"
-                               name="BannerImageFile"
+                        <input type="file" id="BannerImageFile" name="BannerImageFile"
                                accept="image/jpeg,image/png,image/webp" />
                     </div>
 
@@ -509,17 +743,13 @@
 
             <div class="media-input">
                 <label for="GalleryImages">Yeni ekran görüntüleri</label>
-                <input type="file"
-                       id="GalleryImages"
-                       name="GalleryImages"
-                       accept="image/jpeg,image/png,image/webp"
+                <input type="file" id="GalleryImages" name="GalleryImages" accept="image/jpeg,image/png,image/webp"
                        multiple />
             </div>
 
             <div class="media-input">
                 <label for="GalleryImageUrls">Yeni görsel URL'leri</label>
-                <textarea id="GalleryImageUrls"
-                          name="GalleryImageUrls"
+                <textarea id="GalleryImageUrls" name="GalleryImageUrls"
                           placeholder="Her satıra bir görsel URL'si gir."></textarea>
             </div>
 
@@ -539,10 +769,7 @@
                 {
                     <div class="media-card" style="margin-bottom:12px;">
                         <h3>@video.Title</h3>
-                        <a href="@video.VideoUrl"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           style="color:#aaa;font-size:12px;">
+                        <a href="@video.VideoUrl" target="_blank" rel="noopener noreferrer" style="color:#aaa;font-size:12px;">
                             Videoyu görüntüle
                         </a>
                     </div>
@@ -559,20 +786,95 @@
 
                 <div class="media-card">
                     <h3>Yeni Video Dosyaları</h3>
-                    <input type="file"
-                           name="TrailerFiles"
-                           accept="video/mp4,video/webm"
-                           multiple />
+                    <input type="file" name="TrailerFiles" accept="video/mp4,video/webm" multiple />
                 </div>
 
                 <div class="media-card">
                     <h3>Yeni Video URL'leri</h3>
-                    <textarea name="TrailerUrls"
-                              placeholder="Her satıra bir video URL'si gir."></textarea>
+                    <textarea name="TrailerUrls" placeholder="Her satıra bir video URL'si gir."></textarea>
                 </div>
 
             </div>
 
+        </section>
+
+        <!-- Sistem Gereksimleri -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Sistem Gereksinimleri</h2>
+                <p>Oyunun minimum ve önerilen sistem özelliklerini düzenle.</p>
+            </div>
+
+            <div class="system-requirements">
+
+                <div class="requirement-card">
+                    <h3>Minimum Gereksinimler</h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>İşletim Sistemi</label>
+                            <input asp-for="SystemRequirement.MinimumOS" placeholder="Windows 10" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>İşlemci</label>
+                            <input asp-for="SystemRequirement.MinimumProcessor" placeholder="Intel Core i5..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bellek (RAM)</label>
+                            <input asp-for="SystemRequirement.MinimumMemory" placeholder="8 GB RAM" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ekran Kartı</label>
+                            <input asp-for="SystemRequirement.MinimumGraphics" placeholder="GTX 1060..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Depolama</label>
+                            <input asp-for="SystemRequirement.MinimumStorage" placeholder="70 GB" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="requirement-card">
+                    <h3>Önerilen Gereksinimler</h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>İşletim Sistemi</label>
+                            <input asp-for="SystemRequirement.RecommendedOS" placeholder="Windows 11" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>İşlemci</label>
+                            <input asp-for="SystemRequirement.RecommendedProcessor" placeholder="Intel Core i7..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bellek (RAM)</label>
+                            <input asp-for="SystemRequirement.RecommendedMemory" placeholder="16 GB RAM" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ekran Kartı</label>
+                            <input asp-for="SystemRequirement.RecommendedGraphics" placeholder="RTX 3070..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Depolama</label>
+                            <input asp-for="SystemRequirement.RecommendedStorage" placeholder="70 GB SSD" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <!-- Buttonlar -->
@@ -582,10 +884,7 @@
 
             <div class="footer-buttons">
 
-                <a asp-area="Admin"
-                   asp-controller="Games"
-                   asp-action="Index"
-                   class="form-button cancel-button">
+                <a asp-area="Admin" asp-controller="Games" asp-action="Index" class="form-button cancel-button">
                     İptal
                 </a>
 
@@ -597,5 +896,106 @@
         </div>
 
     </form>
-
+    
 </div>
+
+<script>
+    function setupMultiPicker(config) {
+        const source = document.getElementById(config.sourceId);
+        const search = document.getElementById(config.searchId);
+        const optionsContainer = document.getElementById(config.optionsId);
+        const selectedContainer = document.getElementById(config.selectedId);
+
+        if (!source || !search || !optionsContainer || !selectedContainer) {
+            return;
+        }
+
+        function render() {
+            const searchValue = search.value.toLocaleLowerCase("tr-TR");
+            const options = Array.from(source.options);
+
+            optionsContainer.innerHTML = "";
+            selectedContainer.innerHTML = "";
+
+            const filteredOptions = options.filter(option =>
+                option.textContent.toLocaleLowerCase("tr-TR").includes(searchValue)
+            );
+
+            if (filteredOptions.length === 0) {
+                const emptyMessage = document.createElement("div");
+                emptyMessage.className = "picker-empty";
+                emptyMessage.textContent = options.length === 0
+                    ? "Henüz kayıtlı seçenek bulunmuyor."
+                    : "Aramana uygun seçenek bulunamadı.";
+                optionsContainer.appendChild(emptyMessage);
+            }
+
+            filteredOptions.forEach(option => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "picker-option";
+                button.textContent = option.textContent;
+                button.setAttribute("aria-pressed", option.selected ? "true" : "false");
+
+                if (option.selected) {
+                    button.classList.add("selected");
+                }
+
+                button.addEventListener("click", () => {
+                    option.selected = !option.selected;
+                    render();
+                    search.focus();
+                });
+
+                optionsContainer.appendChild(button);
+            });
+
+            options.filter(option => option.selected).forEach(option => {
+                const chip = document.createElement("div");
+                chip.className = "picker-chip";
+
+                const name = document.createElement("span");
+                name.textContent = option.textContent;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.textContent = "×";
+                removeButton.title = "Seçimi kaldır";
+                removeButton.setAttribute("aria-label", option.textContent + " seçimini kaldır");
+
+                removeButton.addEventListener("click", () => {
+                    option.selected = false;
+                    render();
+                });
+
+                chip.append(name, removeButton);
+                selectedContainer.appendChild(chip);
+            });
+
+            if (!options.some(option => option.selected)) {
+                const emptySelected = document.createElement("div");
+                emptySelected.className = "picker-empty";
+                emptySelected.textContent = "Henüz seçim yapılmadı.";
+                selectedContainer.appendChild(emptySelected);
+            }
+        }
+
+        search.addEventListener("input", render);
+        render();
+    }
+
+    setupMultiPicker({
+        sourceId: "genreSelectSource",
+        searchId: "genreSearch",
+        optionsId: "genreOptions",
+        selectedId: "selectedGenres"
+    });
+
+    setupMultiPicker({
+        sourceId: "tagSelectSource",
+        searchId: "tagSearch",
+        optionsId: "tagOptions",
+        selectedId: "selectedTags"
+    });
+</script>
+

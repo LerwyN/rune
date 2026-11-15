@@ -1,2 +1,2 @@
-Rune Store 
+Rune Games Store 
 Version: 0.2.0 Beta

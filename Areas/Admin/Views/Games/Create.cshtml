@@ -1,4 +1,3 @@
-
 @{
     ViewData["Title"] = "Yeni Oyun Ekle";
 }
@@ -315,6 +314,124 @@
         background: #ddd;
     }
 
+    .multi-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .multi-picker > label {
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .picker-search {
+        width: 100%;
+        padding: 13px 14px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+        transition: .2s;
+    }
+
+    .picker-search:focus {
+        border-color: #888;
+        background: #222;
+    }
+
+    .picker-search::placeholder {
+        color: #707070;
+    }
+
+    .picker-options {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 8px;
+        min-height: 58px;
+        max-height: 180px;
+        overflow-y: auto;
+        padding: 12px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 8px;
+    }
+
+    .picker-option {
+        padding: 8px 11px;
+        background: #252525;
+        border: 1px solid #383838;
+        border-radius: 6px;
+        color: #aaa;
+        font-size: 11px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .picker-option:hover {
+        background: #333;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .picker-option.selected {
+        background: #fff;
+        border-color: #fff;
+        color: #111;
+    }
+
+    .picker-selected-title {
+        margin-top: 5px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .picker-selected {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-height: 28px;
+    }
+
+    .picker-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 10px;
+        background: #292929;
+        border: 1px solid #414141;
+        border-radius: 6px;
+        color: #eee;
+        font-size: 11px;
+    }
+
+    .picker-chip button {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #999;
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .picker-chip button:hover {
+        color: #ff7777;
+    }
+
+    .picker-empty {
+        width: 100%;
+        color: #777;
+        font-size: 11px;
+        padding: 5px 2px;
+    }
+
     @@media (max-width: 750px) {
         .form-grid,
         .media-grid,
@@ -486,20 +603,55 @@
             <div class="form-grid">
 
                 <div class="form-group">
-                    <label for="GenreIds">Oyun Türleri</label>
-                    <select id="GenreIds" name="GenreIds" multiple size="5">
-                        <option disabled>Türler backend bağlantısından sonra yüklenecek</option>
-                    </select>
-                    <small>Birden fazla tür seçilebilir.</small>
+                    <div class="multi-picker" data-picker="genres">
+                        <label for="genreSearch">Oyun Türleri</label>
+
+                        <input type="search"
+                               id="genreSearch"
+                               class="picker-search"
+                               placeholder="Oyun türü ara..."
+                               autocomplete="off" />
+
+                        <div class="picker-options" id="genreOptions"></div>
+
+                        <div class="picker-selected-title">Seçilen Türler</div>
+                        <div class="picker-selected" id="selectedGenres"></div>
+
+                        <select id="genreSelectSource"
+                                name="genreIds"
+                                asp-items="ViewBag.Genres"
+                                multiple
+                                hidden>
+                        </select>
+
+                        <small>Türleri listeden seçebilir veya seçimin yanındaki × ile kaldırabilirsin.</small>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="TagNames">Etiketler</label>
-                    <input type="text"
-                           id="TagNames"
-                           name="TagNames"
-                           placeholder="Açık dünya, RPG, Aksiyon..." />
-                    <small>Etiketleri virgülle ayır.</small>
+                    <div class="multi-picker" data-picker="tags">
+                        <label for="tagSearch">Oyun Etiketleri</label>
+
+                        <input type="search"
+                               id="tagSearch"
+                               class="picker-search"
+                               placeholder="Etiket ara..."
+                               autocomplete="off" />
+
+                        <div class="picker-options" id="tagOptions"></div>
+
+                        <div class="picker-selected-title">Seçilen Etiketler</div>
+                        <div class="picker-selected" id="selectedTags"></div>
+
+                        <select id="tagSelectSource"
+                                name="tagIds"
+                                asp-items="ViewBag.Tags"
+                                multiple
+                                hidden>
+                        </select>
+
+                        <small>Etiketleri listeden seçebilir veya seçimin yanındaki × ile kaldırabilirsin.</small>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -789,3 +941,105 @@
 
     </form>
 </div>
+
+
+<script>
+    function setupMultiPicker(config) {
+        const source = document.getElementById(config.sourceId);
+        const search = document.getElementById(config.searchId);
+        const optionsContainer = document.getElementById(config.optionsId);
+        const selectedContainer = document.getElementById(config.selectedId);
+
+        if (!source || !search || !optionsContainer || !selectedContainer) {
+            return;
+        }
+
+        function render() {
+            const searchValue = search.value.toLocaleLowerCase("tr-TR");
+            const options = Array.from(source.options);
+
+            optionsContainer.innerHTML = "";
+            selectedContainer.innerHTML = "";
+
+            const filteredOptions = options.filter(option =>
+                option.textContent.toLocaleLowerCase("tr-TR").includes(searchValue)
+            );
+
+            if (filteredOptions.length === 0) {
+                const emptyMessage = document.createElement("div");
+                emptyMessage.className = "picker-empty";
+                emptyMessage.textContent = options.length === 0
+                    ? "Henüz kayıtlı seçenek bulunmuyor."
+                    : "Aramana uygun seçenek bulunamadı.";
+                optionsContainer.appendChild(emptyMessage);
+            }
+
+            filteredOptions.forEach(option => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "picker-option";
+                button.textContent = option.textContent;
+                button.setAttribute("aria-pressed", option.selected ? "true" : "false");
+
+                if (option.selected) {
+                    button.classList.add("selected");
+                }
+
+                button.addEventListener("click", () => {
+                    option.selected = !option.selected;
+                    render();
+                    search.focus();
+                });
+
+                optionsContainer.appendChild(button);
+            });
+
+            options.filter(option => option.selected).forEach(option => {
+                const chip = document.createElement("div");
+                chip.className = "picker-chip";
+
+                const name = document.createElement("span");
+                name.textContent = option.textContent;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.textContent = "×";
+                removeButton.title = "Seçimi kaldır";
+                removeButton.setAttribute("aria-label", option.textContent + " seçimini kaldır");
+
+                removeButton.addEventListener("click", () => {
+                    option.selected = false;
+                    render();
+                });
+
+                chip.append(name, removeButton);
+                selectedContainer.appendChild(chip);
+            });
+
+            if (!options.some(option => option.selected)) {
+                const emptySelected = document.createElement("div");
+                emptySelected.className = "picker-empty";
+                emptySelected.textContent = "Henüz seçim yapılmadı.";
+                selectedContainer.appendChild(emptySelected);
+            }
+        }
+
+        search.addEventListener("input", render);
+        render();
+    }
+
+    setupMultiPicker({
+        sourceId: "genreSelectSource",
+        searchId: "genreSearch",
+        optionsId: "genreOptions",
+        selectedId: "selectedGenres"
+    });
+
+    setupMultiPicker({
+        sourceId: "tagSelectSource",
+        searchId: "tagSearch",
+        optionsId: "tagOptions",
+        selectedId: "selectedTags"
+    });
+</script>
+

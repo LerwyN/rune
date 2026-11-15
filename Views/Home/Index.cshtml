@@ -43,7 +43,7 @@
         {
             <div class="featured-showcase">
                 <div class="featured-game">
-                    <div class="banner" id="featuredBanner" data-details-url="@Url.Action("Details", "Games")"
+                    <div class="banner" id="featuredBanner" data-details-url="@Url.Action("Details", "Games", new { id = initialFeaturedGame.Id })""
                          style="--banner-image: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0) 100%), url('@initialBannerImage');">
                         <div class="banner-content">
                             <h1 id="bannerTitle">@initialFeaturedGame.Title</h1>

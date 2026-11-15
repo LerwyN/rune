@@ -309,6 +309,55 @@ namespace RUNE.Migrations
                     b.ToTable("GameImages");
                 });
 
+            modelBuilder.Entity("RUNE.Models.Entities.GameSystemRequirement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MinimumGraphics")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MinimumMemory")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MinimumOS")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MinimumProcessor")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MinimumStorage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecommendedGraphics")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecommendedMemory")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecommendedOS")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecommendedProcessor")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecommendedStorage")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.ToTable("GameSystemRequirements");
+                });
+
             modelBuilder.Entity("RUNE.Models.Entities.GameVideo", b =>
                 {
                     b.Property<int>("Id")
@@ -566,6 +615,17 @@ namespace RUNE.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("RUNE.Models.Entities.GameSystemRequirement", b =>
+                {
+                    b.HasOne("RUNE.Models.Game", "Game")
+                        .WithOne("SystemRequirement")
+                        .HasForeignKey("RUNE.Models.Entities.GameSystemRequirement", "GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("RUNE.Models.Entities.GameVideo", b =>
                 {
                     b.HasOne("RUNE.Models.Game", "Game")
@@ -580,6 +640,8 @@ namespace RUNE.Migrations
             modelBuilder.Entity("RUNE.Models.Game", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("SystemRequirement");
 
                     b.Navigation("Videos");
                 });

@@ -105,9 +105,10 @@ body>.container {
 /* rune ikon */
 .rune-icon img {
   display: block;
-  height: 50px;
+  height: 180px;
+  padding-top: 17px;
   width: auto;
-  transform: translateX(70px);
+  transform: translateX(10px);
   cursor: default;
 }
 
@@ -1738,9 +1739,10 @@ body>.container {
   }
 
   .rune-icon img {
-    height: 36px;
+    height: 170px;
     padding-left: 0;
     transform: none;
+    transform: translateX(20px);
   }
 
   .version {

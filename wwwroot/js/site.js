@@ -244,7 +244,9 @@ function showFeaturedGame() {
   if (detailsButton) {
     detailsButton.textContent = "İncele";
     detailsButton.href = detailsUrl.pathname + detailsUrl.search;
+    featuredBanner.dataset.detailsUrl = detailsUrl.pathname + detailsUrl.search;
   }
+  
 clearTimeout(bannerTransitionTimeout);
   featuredBanner.classList.add("banner-entering");
 
@@ -446,4 +448,10 @@ document.addEventListener("keydown", (event) => {
   } else if (whatsNewDialog && whatsNewOverlay && !whatsNewOverlay.hidden) {
     trapDialogFocus(whatsNewDialog, event);
   }
+});
+
+featuredBanner.addEventListener("click", function (e) {
+    if (e.target.closest("a, button")) return;
+
+    window.location.href = detailsButton.href;
 });

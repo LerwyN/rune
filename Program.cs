@@ -1,9 +1,9 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using RUNE.Data;
 using RUNE.Models;
+using RUNE.Models.Entities;
 using RUNE.Services.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,6 +89,107 @@ using (var scope = app.Services.CreateScope())
             }
         }
 
+        // Oyun türlerini oluşturma.
+        string[] genreNames =
+        {
+            // Aksiyon ve Macera
+            "Aksiyon",
+            "Macera",
+            "Açık Dünya",
+            "Stealth",
+            "Platform",
+            "Dövüş",
+
+            // Nişancı
+            "FPS",
+            "TPS",
+            "Taktiksel Nişancı",
+            "Looter Shooter",
+            "Battle Royale",
+
+            // Rol Yapma
+            "RPG",
+            "JRPG",
+            "ARPG",
+            "MMORPG",
+            "CRPG",
+            "Soulslike",
+
+            // Korku ve Hayatta Kalma
+            "Korku",
+            "Psikolojik Korku",
+            "Hayatta Kalma",
+            "Survival Horror",
+            "Zombi",
+
+            // Diğer
+            "Strateji",
+            "RTS",
+            "4X",
+            "Simülasyon",
+            "Yarış",
+            "Spor",
+            "Bulmaca",
+            "Roguelike",
+            "Roguelite",
+            "Metroidvania",
+            "Sandbox",
+            "Müzik ve Ritim",
+            "Görsel Roman"
+        };
+
+        foreach (var genreName in genreNames)
+        {
+            if(!await context.Genres.AnyAsync(genre => genre.Name == genreName))
+            {
+                context.Genres.Add(new Genre
+                {
+                    Name = genreName
+                }); 
+            }
+        }
+        await context.SaveChangesAsync();
+
+        string[] tagNames =
+        {
+            // Çok Oyunculu
+            "PvP",
+            "PvE",
+            "Co-op",
+            "Online Co-op",
+            "Local Co-op",
+            "Tek Oyunculu",
+            "Çok Oyunculu",
+
+            // Oynanış
+            "Hikâye Odaklı",
+            "Doğrusal Hikâye",
+            "Serbest Keşif",
+            "Prosedürel Üretim",
+            "Permadeath",
+            "Rekabetçi",
+            "Dereceli",
+
+            // Destek ve Diğer Özellikler
+            "Erken Erişim",
+            "VR Desteği",
+            "Kontrolcü Desteği",
+            "Çapraz Platform",
+            "Mod Desteği"
+        };
+
+        foreach (var tagName in tagNames)
+        {
+            if(!await context.Tags.AnyAsync(tag => tag.Name == tagName))
+            {
+                context.Tags.Add(new Tag
+                {
+                    Name = tagName
+                }); 
+            }
+        }
+        await context.SaveChangesAsync();
+
         // Belirlenen yönetici hesabına Admin rolü ata.
         var adminEmail = builder.Configuration["RUNE_ADMIN_EMAIL"];
 
@@ -115,9 +216,6 @@ using (var scope = app.Services.CreateScope())
                 }
             }
         }
-
-        await GameSeeder.SeedAsync(context);
-        await ReleaseNoteSeeder.SeedAsync(context, currentVersion);
     }
     finally
     {

@@ -1,9 +1,528 @@
 
+@model RUNE.Models.ViewModels.AdminDashboardViewModel
+
 @{
-    ViewData["Title"] = "Yönetim Paneli";
+    ViewData["Title"] = "Genel Bakış";
 }
 
-<div class="container">
-    <h1>Rune Yönetim Paneli</h1>
-    <p>Yönetici olarak başarıyla giriş yaptın.</p>
+<style>
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        color: #f5f5f5;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .dashboard-header h1 {
+        margin: 0 0 8px;
+        font-size: 27px;
+        font-weight: 750;
+    }
+
+    .dashboard-header p {
+        margin: 0;
+        color: #888;
+        font-size: 13px;
+    }
+
+    .dashboard-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .dashboard-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 17px;
+        border-radius: 7px;
+        background: #fff;
+        color: #111;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: .2s;
+        white-space: nowrap;
+    }
+
+    .dashboard-btn:hover {
+        background: #ddd;
+        color: #111;
+    }
+
+    .dashboard-btn.secondary {
+        background: #222;
+        color: #eee;
+        border: 1px solid #333;
+    }
+
+    .dashboard-btn.secondary:hover {
+        background: #303030;
+    }
+
+    .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 17px;
+    }
+
+    .section-heading h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .section-heading a {
+        color: #aaa;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+    .section-heading a:hover {
+        color: #fff;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 21px;
+        background: #141414;
+        border: 1px solid #292929;
+        border-radius: 9px;
+    }
+
+    .stat-label {
+        margin-bottom: 17px;
+        color: #999;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .stat-value {
+        color: #fff;
+        font-size: 27px;
+        font-weight: 750;
+    }
+
+    .stat-description {
+        margin-top: 9px;
+        color: #777;
+        font-size: 11px;
+    }
+
+    .dashboard-table-container {
+        overflow-x: auto;
+        background: #141414;
+        border: 1px solid #292929;
+        border-radius: 9px;
+    }
+
+    .games-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 16px;
+    }
+
+    .games-search {
+        width: 300px;
+        max-width: 100%;
+        padding: 11px 14px;
+        background: #171717;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        outline: none;
+        font-size: 12px;
+    }
+
+    .games-search:focus {
+        border-color: #777;
+    }
+
+    .games-search::placeholder {
+        color: #777;
+    }
+
+    .games-table {
+        width: 100%;
+        min-width: 750px;
+        border-collapse: collapse;
+    }
+
+    .games-table thead {
+        background: #1c1c1c;
+    }
+
+    .games-table th {
+        padding: 15px 18px;
+        color: #888;
+        font-size: 10px;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: .7px;
+    }
+
+    .games-table td {
+        padding: 16px 18px;
+        border-top: 1px solid #292929;
+        color: #bbb;
+        font-size: 12px;
+    }
+
+    .games-table tbody tr:hover {
+        background: #1c1c1c;
+    }
+
+    .game-name {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .game-price {
+        color: #fff;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .game-status {
+        display: inline-block;
+        padding: 6px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .published {
+        background: #173323;
+        color: #8be0aa;
+    }
+
+    .unpublished {
+        background: #303030;
+        color: #aaa;
+    }
+
+    .game-actions {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .game-action {
+        padding: 7px 10px;
+        border: 0;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .edit-action {
+        background: #303030;
+        color: #fff;
+    }
+
+    .edit-action:hover {
+        background: #444;
+        color: #fff;
+    }
+
+    .delete-action {
+        background: #3b1c1c;
+        color: #ff8585;
+    }
+
+    .delete-action:hover {
+        background: #672323;
+        color: #fff;
+    }
+
+    .empty-message {
+        padding: 35px 20px;
+        color: #888;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    @@media (max-width: 1050px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @@media (max-width: 700px) {
+        .dashboard-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .quick-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .games-toolbar {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .games-search {
+            width: 100%;
+        }
+    }
+
+    .game-info {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 220px;
+    }
+
+    .game-cover {
+        width: 82px;
+        height: 46px;
+        object-fit: cover;
+        border-radius: 6px;
+        background: #292929;
+        border: 1px solid #333;
+    }
+
+    .game-cover-placeholder {
+        width: 82px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        background: #292929;
+        color: #888;
+    }
+
+    .game-name {
+        color: #fff;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+
+    @@media (max-width: 450px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="dashboard">
+    <!-- Başlık -->
+    <section class="dashboard-header">
+        <div>
+            <h1>Genel Bakış</h1>
+            <p>Her şeyi buradan tek seferde ekle,düzenle ve sil</p>
+        </div>
+
+        <div class="dashboard-buttons">
+            <a asp-area="Admin"
+               asp-controller="Games"
+               asp-action="Create"
+               class="dashboard-btn">
+                Yeni Oyun Ekle
+            </a>
+
+            <a href="#games-section"
+               class="dashboard-btn secondary">
+                Oyunları Gör
+            </a>
+        </div>
+    </section>
+
+    <!-- İstatistikler -->
+    <section>
+        <div class="section-heading">
+            <h2>Genel İstatistikler</h2>
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-label">TOPLAM OYUN</div>
+                <div class="stat-value">@Model.TotalGames</div>
+                <div class="stat-description">Kayıtlı oyun sayısı</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">YAYINDAKİ OYUNLAR</div>
+                <div class="stat-value">@Model.PublishedGames</div>
+                <div class="stat-description">Mağazada yayınlanan oyunlar</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">TOPLAM TÜR</div>
+                <div class="stat-value">@Model.TotalGenres</div>
+                <div class="stat-description">Tanımlanmış oyun türleri</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">TOPLAM GELİR</div>
+                <div class="stat-value">Beklemede</div>
+                <div class="stat-description">Satış sistemi bağlandığında gösterilecek</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Oyunlar -->
+    <section id="games-section">
+
+        <div class="section-heading">
+            <h2>Oyunlar</h2>
+
+            <a asp-area="Admin"
+               asp-controller="Games"
+               asp-action="Index">
+                Tüm oyunları aç →
+            </a>
+        </div>
+
+        <div class="games-toolbar">
+            <input type="search"
+                   id="gameSearch"
+                   class="games-search"
+                   placeholder="Oyun, geliştirici veya yayıncı ara..." />
+
+            <span style="color:#888; font-size:11px;">
+                @Model.TotalGames oyun listeleniyor
+            </span>
+        </div>
+
+        <div class="dashboard-table-container">
+            @if (Model.Games.Any())
+            {
+                <table class="games-table">
+                    <thead>
+                        <tr>
+                            <th>Oyun</th>
+                            <th>Tür</th>
+                            <th>Geliştirici</th>
+                            <th>Fiyat</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="gamesTableBody">
+
+                        @foreach (var game in Model.Games)
+                        {
+                            <tr class="game-row">
+                                <td>
+                                    <div class="game-info">
+                                        @if (!string.IsNullOrWhiteSpace(game.CoverImagePath))
+                                        {
+                                            <img src="@game.CoverImagePath"
+                                                alt="@game.Title"
+                                                class="game-cover" />
+                                        }
+                                        else
+                                        {
+                                            <div class="game-cover-placeholder">
+                                                <icon-placeholder></icon-placeholder>
+                                                🎮
+                                            </div>
+                                        }
+                                        <span class="game-name">@game.Title</span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @(game.Genre.Any()
+                                        ? string.Join(", ", game.Genre.Select(genre => genre.Name))
+                                        : "Belirtilmemiş")
+                                </td>
+
+                                <td>@game.Developer</td>
+
+                                <td>
+                                    <span class="game-price">
+                                        @game.Price.ToString("N2") ₺
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @if (game.IsPublished)
+                                    {
+                                        <span class="game-status published">Yayında</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="game-status unpublished">Taslak</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <div class="game-actions">
+                                        <a asp-area="Admin"
+                                           asp-controller="Games"
+                                           asp-action="Edit"
+                                           asp-route-id="@game.Id"
+                                           class="game-action edit-action">
+                                            <img src="https://img.icons8.com/?size=100&id=114092&format=png&color=ffffff" alt="edit" height="15px" width="15px">
+                                        </a>
+
+                                        <form asp-area="Admin"
+                                              asp-controller="Games"
+                                              asp-action="Delete"
+                                              asp-route-id="@game.Id"
+                                              method="post"
+                                              onsubmit="return confirm('Bu oyunu silmek istediğine emin misin?');">
+
+                                            <button type="submit"
+                                                    class="game-action delete-action">
+                                                <img src="https://img.icons8.com/?size=100&id=78581&format=png&color=FF7F7F " height="15px" width="15px"></img>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-message">
+                    Henüz oyun eklenmemiş.
+                </div>
+            }
+
+        </div>
+    </section>
+
 </div>
+
+<script>
+    const gameSearch = document.getElementById("gameSearch");
+
+    gameSearch.addEventListener("input", function () {
+        const searchValue = this.value.toLocaleLowerCase("tr-TR");
+
+        document.querySelectorAll(".game-row").forEach(row => {
+            const rowText = row.textContent.toLocaleLowerCase("tr-TR");
+            row.style.display = rowText.includes(searchValue) ? "" : "none";
+        });
+    });
+</script>

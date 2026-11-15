@@ -32,7 +32,7 @@
     <nav class="game-detail-tabs" aria-label="Oyun sayfası bölümleri">
         <a class="active" href="#game-overview">Genel Bakış</a>
         <a href="#game-facts">Oyun Bilgileri</a>
-        <a href="#game-community">Oyuncu Topluluğu</a>
+        <a href="#game-community">Değerlendirmeler</a>
     </nav>
 
     <div class="game-product-layout">
@@ -42,7 +42,7 @@
                     @if (initialImage is not null)
                     {
                         <img class="game-gallery-main-image" src="@initialImage.Path" alt="@initialImage.Alt"
-                             data-gallery-main-image />
+                            data-gallery-main-image />
                     }
                     else
                     {
@@ -118,7 +118,7 @@
                 }
                 else
                 {
-                    <strong>Fiyat yakında</strong>
+                    <strong>@(Model.Price == 0 ? "Ücretsiz" : Model.Price.ToString("C0"))</strong>
                 }
             </div>
 

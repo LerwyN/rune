@@ -1,0 +1,307 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Rune Admin</title>
+    <link rel="icon" href="/images/icons/RuneDarkIcon.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 12px;
+            background: #0b0b0b;
+            color: #fff;
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+
+        .admin-frame {
+            display: grid;
+            grid-template-columns: 250px minmax(0, 1fr);
+            min-height: calc(100vh - 24px);
+            background: #0b0b0b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .admin-sidebar {
+            display: flex;
+            flex-direction: column;
+            padding: 28px 18px 20px;
+            background: #111;
+            border-right: 1px solid #292929;
+        }
+
+        .admin-brand {
+            display: flex;
+            flex-direction: column;
+            padding: 0 13px 32px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .admin-brand strong {
+            font-size: 29px;
+            letter-spacing: -1.5px;
+        }
+
+        .admin-brand span {
+            margin-top: 9px;
+            color: #777;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .sidebar-heading {
+            padding: 0 13px;
+            margin: 12px 0;
+            color: #666;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px;
+            border-radius: 7px;
+            color: #999;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .sidebar-link:hover {
+            background: #202020;
+            color: #fff;
+        }
+
+        .sidebar-link.active {
+            background: #fff;
+            color: #111;
+        }
+
+        .sidebar-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: auto;
+            padding: 18px 10px 0;
+            border-top: 1px solid #292929;
+        }
+
+        .admin-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #292929;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .admin-user strong {
+            display: block;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .admin-user span {
+            display: block;
+            margin-top: 4px;
+            color: #777;
+            font-size: 11px;
+        }
+
+        .admin-main {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 75px;
+            padding: 0 32px;
+            border-bottom: 1px solid #292929;
+        }
+
+        .topbar-title {
+            color: #eee;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #63c88b;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 35px;
+        }
+
+        @@media (max-width: 750px) {
+            body {
+                padding: 6px;
+            }
+
+            .admin-frame {
+                grid-template-columns: 70px minmax(0, 1fr);
+                min-height: calc(100vh - 12px);
+            }
+
+            .admin-sidebar {
+                padding: 20px 8px;
+                align-items: center;
+            }
+
+            .admin-brand {
+                padding: 0 0 28px;
+                align-items: center;
+            }
+
+            .admin-brand strong {
+                font-size: 22px;
+            }
+
+            .admin-brand span,
+            .sidebar-heading,
+            .sidebar-link .link-text,
+            .admin-user {
+                display: none;
+            }
+
+            .sidebar-nav {
+                width: 100%;
+            }
+
+            .sidebar-link {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .sidebar-icon {
+                font-size: 19px;
+            }
+
+            .sidebar-bottom {
+                padding: 15px 0 0;
+            }
+
+            .admin-topbar {
+                padding: 0 18px;
+            }
+
+            .admin-content {
+                padding: 22px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-frame">
+
+        <aside class="admin-sidebar">
+
+            <a asp-area="Admin"
+                asp-controller="Admin"
+               asp-action="Index"
+               class="admin-brand">
+                <div class="d-flex justify-content-center">
+                    <img src="/images/icons/RuneStore.png" alt="Rune Icon" width="100px" height="auto">
+                </div>
+            </a>
+
+            <div class="sidebar-heading">GENEL</div>
+
+            <nav class="sidebar-nav">
+
+                <a asp-area="Admin"
+                   asp-controller="Admin"
+                   asp-action="Index"
+                   class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+                    <span class="sidebar-icon"></span>
+                    <span class="link-text">Genel Bakış</span>
+                </a>
+
+                <a asp-area="Admin"
+                   asp-controller="Games"
+                   asp-action="Index"
+                   class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Games" ? "active" : "")">
+                    <span class="sidebar-icon"></span>
+                    <span class="link-text">Oyun Yönetimi</span>
+                </a>
+
+                <a asp-area="Admin"
+                   asp-controller="Games"
+                   asp-action="Index"
+                   class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "" ? "active" : "")">
+                    <span class="sidebar-icon"></span>
+                    <span class="link-text">Ayarlar</span>
+                </a>
+
+                
+            </nav>
+        </aside>
+
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+                <div class="topbar-title">Ekle,Düzenle ve Sil işlemlerini buradan gerçekleştirebilirsiniz</div>
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    Sistem Aktif
+                </div>
+            </header>
+
+            <main class="admin-content">
+                @RenderBody()
+            </main>
+
+        </div>
+
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

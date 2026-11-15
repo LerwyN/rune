@@ -139,402 +139,381 @@
                 </a>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a asp-controller="Admin" asp-action="Index">
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-up-right">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M17 7l-10 10" />
+                            <path d="M8 7l9 0l0 9" />
+                        </svg>
                         Admin Paneli
                     </a>
                 }
-                
-            </a>
-            <span class="nav-divider"></span>
-            <a href="#" title="Oyun Dünyası Seni Bekliyor">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                     class="icon icon-tabler icons-tabler-outline icon-tabler-download">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                    <path d="M7 11l5 5l5 -5" />
-                    <path d="M12 4l0 12" />
-                </svg>
-                Rune'yi İndir
-            </a>
-            <span class="nav-active-pill"></span>
-        </nav>
-        <div class="navbar-right">
+                <span class="nav-divider"></span>
+                <a href="#" title="Oyun Dünyası Seni Bekliyor">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                        <path d="M7 11l5 5l5 -5" />
+                        <path d="M12 4l0 12" />
+                    </svg>
+                    Rune'yi İndir
+                </a>
+                <span class="nav-active-pill"></span>
+            </nav>
+            <div class="navbar-right">
 
-            @* Diller eklenecek *@
+                @* Diller eklenecek *@
                 
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <div class="wishlist-icon">
+                        <div class="utility-item">
+                            <a href="#wishlistOverlay" data-wishlist-open aria-haspopup="dialog"
+                               aria-controls="wishlistOverlay" title="İstek Listesi">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="icon icon-tabler icons-tabler-outline icon-tabler-bookmark">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M18 7v14l-6 -4l-6 4v-14a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="utility-item">
+                            <a href="#" title="Hediye Et">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
+                                     stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gift">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                    d="M3 9a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1l0 -2" />
+                                    <path d="M12 8l0 13" />
+                                    <path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7" />
+                                    <path
+                                    d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="utility-item">
+                            <a asp-controller="Cart" asp-action="Index" title="Sepet">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M15 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M17 17h-11v-14h-2" />
+                                    <path d="M6 5l14 1l-1 7h-13" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <div class="profile-card">
+                        <a class="user-icon" title="Profilim" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                 stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                                 class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                <path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                            </svg>
+                        </a>
+                        <div class="profile-info">
+                            <h6 class="profile-name">@(User.Identity?.Name ?? "Rune User")</h6>
+                            <p class="profile-level">Seviye 1</p>
+                        </div>
+                        <button class="profile-menu-toggle" id="profileMenuToggle" type="button"
+                                aria-label="Profil menüsünü aç" aria-expanded="false">
+                            <img class="" src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" alt="">
+                        </button>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="profile-dropdown-header">
+                                <strong>@(User.Identity?.Name ?? "Rune User")</strong>
+                            </div>
+                            <a href="#" class="profile-dropdown-item">
+                                Profilim
+                            </a>
+                            <a href="#" class="profile-dropdown-item">
+                                Ayarlar
+                            </a>
+                            
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="profile-dropdown-item logout-link">Çıkış Yap
+                                </button>
+                            </form>
+
+                            <a class="profile-dropdown-item whats-new-trigger" href="#whatsNewOverlay" data-whats-new-open
+                               aria-haspopup="dialog" aria-controls="whatsNewOverlay"
+                               title="Rune'de neler değişti haberdar ol">
+                                <span>Sürüm Yamaları</span>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a class="rune-login-trigger" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                    <a class="rune-register-trigger" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+                }
+            </div>
+
+            <button class="mobile-menu-button" id="mobileMenuToggle" type="button" aria-label="Menüyü aç"
+                    aria-expanded="false" aria-controls="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-menu" id="mobileMenu">
             @if (User.Identity?.IsAuthenticated == true)
             {
-                <div class="wishlist-icon">
-                    <div class="utility-item">
-                        <a href="#wishlistOverlay" data-wishlist-open aria-haspopup="dialog"
-                           aria-controls="wishlistOverlay" title="İstek Listesi">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="icon icon-tabler icons-tabler-outline icon-tabler-bookmark">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M18 7v14l-6 -4l-6 4v-14a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="utility-item">
-                        <a href="#" title="Hediye Et">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
-                                 stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gift">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                d="M3 9a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1l0 -2" />
-                                <path d="M12 8l0 13" />
-                                <path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7" />
-                                <path
-                                d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="utility-item">
-                        <a asp-controller="Cart" asp-action="Index" title="Sepet">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                <path d="M15 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                <path d="M17 17h-11v-14h-2" />
-                                <path d="M6 5l14 1l-1 7h-13" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-        
-                <div class="profile-card">
-                    <a class="user-icon" title="Profilim" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                             stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                             class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                            <path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                        </svg>
-                    </a>
-                    <div class="profile-info">
-                        <h6 class="profile-name">@(User.Identity?.Name ?? "Rune User")</h6>
-                        <p class="profile-level">Seviye 1</p>
-                    </div>
-                    <button class="profile-menu-toggle" id="profileMenuToggle" type="button"
-                            aria-label="Profil menüsünü aç" aria-expanded="false">
-                        <img class="" src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" alt="">
-                    </button>
-                    <div class="profile-dropdown" id="profileDropdown">
-                        <div class="profile-dropdown-header">
-                            <strong>@(User.Identity?.Name ?? "Rune User")</strong>
-                        </div>
-                        <a href="#" class="profile-dropdown-item">
-                            Profilim
-                        </a>
-                        <a href="#" class="profile-dropdown-item">
-                            Ayarlar
-                        </a>
-                            
-                        <form asp-controller="Account" asp-action="Logout" method="post">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="profile-dropdown-item logout-link">Çıkış Yap
-                            </button>
-                        </form>
-
-                        <a class="profile-dropdown-item whats-new-trigger" href="#whatsNewOverlay" data-whats-new-open
-                           aria-haspopup="dialog" aria-controls="whatsNewOverlay"
-                           title="Rune'de neler değişti haberdar ol">
-                            <span>Sürüm Yamaları</span>
-                        </a>
+                <div class="mobile-menu-profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                         stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                        <path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                    </svg>
+                    <div>
+                        <strong>@(User.Identity?.Name ?? "Rune User")</strong>
+                        <p>Seviye 1</p>
                     </div>
                 </div>
             }
             else
             {
-                <a class="rune-login-trigger" asp-controller="Account" asp-action="Login">Giriş Yap</a>
-                <a class="rune-register-trigger" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
-            }
-        </div>
-
-        <button class="mobile-menu-button" id="mobileMenuToggle" type="button" aria-label="Menüyü aç"
-                aria-expanded="false" aria-controls="mobileMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-        
-    <nav class="mobile-menu" id="mobileMenu">
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <div class="mobile-menu-profile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                     stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                     class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                    <path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                </svg>
-                <div>
-                    <strong>@(User.Identity?.Name ?? "Rune User")</strong>
-                    <p>Seviye 1</p>
+                <div class="mobile-auth-actions mt-2">
+                    <a class="rune-login-trigger" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                    <a class="rune-register-trigger" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
                 </div>
-            </div>
-        }
-        else
-        {
-            <div class="mobile-auth-actions mt-2">
-                <a class="rune-login-trigger" asp-controller="Account" asp-action="Login">Giriş Yap</a>
-                <a class="rune-register-trigger" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
-            </div>
-        }
+            }
 
-        <a asp-controller="Home" asp-action="Index">
-            Mağaza
-        </a>
-        <a asp-controller="Library" asp-action="Index">
-            Atölye
-        </a>
-        <a asp-controller="Community" asp-action="Index">
-            Topluluk
-        </a>
-        <a asp-controller="News" asp-action="Index">
-            Haberler
-        </a>
-        <a asp-controller="Support" asp-action="Index">
-            Destek
-        </a>
-        <div class="mobile-menu-divider"></div>
-
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a href="#">İstek Listem</a>
-
-            <a href="#">Hediye Et</a>
-
-            <a asp-controller="Cart" asp-action="Index">Sepet</a>
-
-            <a href="#">Profilim</a>
-            
-            <a href="#">Ayarlar</a>
-            
-            <form asp-controller="Account" asp-action="Logout" method="post">
-                @Html.AntiForgeryToken()
-                <button type="submit" class="profile-dropdown-item logout-link">Çıkış Yap
-                </button>
-            </form>
-
-            <a class="whats-new-trigger mobile-menu-whats-new"  href="#whatsNewOverlay" data-whats-new-open
-            aria-controls="whatsNewOverlay" title="Rune'de neler değişti haberdar ol">
-                <span class="mobile-menu-whats-new-copy">
-                    <strong>Sürüm Notları</strong>
-                </span>
+            <a asp-controller="Home" asp-action="Index">
+                Mağaza
             </a>
-        }    
-    </nav>
-</header>
+            <a asp-controller="Library" asp-action="Index">
+                Atölye
+            </a>
+            <a asp-controller="Community" asp-action="Index">
+                Topluluk
+            </a>
+            <a asp-controller="News" asp-action="Index">
+                Haberler
+            </a>
+            <a asp-controller="Support" asp-action="Index">
+                Destek
+            </a>
+            <div class="mobile-menu-divider"></div>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a href="#">İstek Listem</a>
+
+                <a href="#">Hediye Et</a>
+
+                <a asp-controller="Cart" asp-action="Index">Sepet</a>
+
+                <a href="#">Profilim</a>
+            
+                <a href="#">Ayarlar</a>
+            
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="profile-dropdown-item logout-link">Çıkış Yap
+                    </button>
+                </form>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" target="_blank" rel="noopener noreferrer">
+                        <span class="text-white">Admin Paneli</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-up-right">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M17 7l-10 10" />
+                            <path d="M8 7l9 0l0 9" />
+                        </svg>
+                    
+                    </a>
+                }
+                    
+
+                <a class="whats-new-trigger mobile-menu-whats-new" href="#whatsNewOverlay" data-whats-new-open
+                   aria-controls="whatsNewOverlay" title="Rune'de neler değişti haberdar ol">
+                    <span class="mobile-menu-whats-new-copy">
+                        <strong>Sürüm Notları</strong>
+                    </span>
+                </a>
+            }
+        </nav>
+    </header>
 
 
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
     
-<footer class="rune-footer">
-    <div class="rune-footer-header">
-        <h2 class="rune-store">Rune Games Store</h2>
-        <div class="rune-footer-socials">
-            <a href="https://discord.gg/6xXKfcKhHJ" aria-label="Discord" title="Discord">
-                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                     id="Discord--Streamline-Simple-Icons" height="24" width="24">
-                    <title>Discord</title>
-                    <path
-                    d="M20.317 4.3698a19.7913 19.7913 0 0 0 -4.8851 -1.5152 0.0741 0.0741 0 0 0 -0.0785 0.0371c-0.211 0.3753 -0.4447 0.8648 -0.6083 1.2495 -1.8447 -0.2762 -3.68 -0.2762 -5.4868 0 -0.1636 -0.3933 -0.4058 -0.8742 -0.6177 -1.2495a0.077 0.077 0 0 0 -0.0785 -0.037 19.7363 19.7363 0 0 0 -4.8852 1.515 0.0699 0.0699 0 0 0 -0.0321 0.0277C0.5334 9.0458 -0.319 13.5799 0.0992 18.0578a0.0824 0.0824 0 0 0 0.0312 0.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a0.0777 0.0777 0 0 0 0.0842 -0.0276c0.4616 -0.6304 0.8731 -1.2952 1.226 -1.9942a0.076 0.076 0 0 0 -0.0416 -0.1057c-0.6528 -0.2476 -1.2743 -0.5495 -1.8722 -0.8923a0.077 0.077 0 0 1 -0.0076 -0.1277c0.1258 -0.0943 0.2517 -0.1923 0.3718 -0.2914a0.0743 0.0743 0 0 1 0.0776 -0.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a0.0739 0.0739 0 0 1 0.0785 0.0095c0.1202 0.099 0.246 0.1981 0.3728 0.2924a0.077 0.077 0 0 1 -0.0066 0.1276 12.2986 12.2986 0 0 1 -1.873 0.8914 0.0766 0.0766 0 0 0 -0.0407 0.1067c0.3604 0.698 0.7719 1.3628 1.225 1.9932a0.076 0.076 0 0 0 0.0842 0.0286c1.961 -0.6067 3.9495 -1.5219 6.0023 -3.0294a0.077 0.077 0 0 0 0.0313 -0.0552c0.5004 -5.177 -0.8382 -9.6739 -3.5485 -13.6604a0.061 0.061 0 0 0 -0.0312 -0.0286zM8.02 15.3312c-1.1825 0 -2.1569 -1.0857 -2.1569 -2.419 0 -1.3332 0.9555 -2.4189 2.157 -2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332 -0.9555 2.4189 -2.1569 2.4189zm7.9748 0c-1.1825 0 -2.1569 -1.0857 -2.1569 -2.419 0 -1.3332 0.9554 -2.4189 2.1569 -2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332 -0.946 2.4189 -2.1568 2.4189Z"
-                    fill="#FFFFFF" stroke-width="1"></path>
-                </svg>
-            </a>
-            <a href="https://github.com/LerwyN/Rune-Game-Platform" aria-label="GitHub" title="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     id="Github-Logo-2--Streamline-Logos" height="24" width="24">
-                    <path fill="#FFFFFF"
-                          d="M11.996 1.284a10.986 10.986 0 0 0 -3.472 21.412c0.548 0.095 0.722 -0.227 0.722 -0.517 0 -0.263 0.006 -0.991 0 -1.91 -3.057 0.662 -3.688 -1.448 -3.688 -1.448a2.907 2.907 0 0 0 -1.22 -1.607c-0.997 -0.682 0.075 -0.669 0.075 -0.669a2.307 2.307 0 0 1 1.683 1.131 2.34 2.34 0 0 0 3.197 0.914 2.34 2.34 0 0 1 0.697 -1.464c-2.439 -0.279 -5.004 -1.22 -5.004 -5.432a4.248 4.248 0 0 1 1.132 -2.948 3.942 3.942 0 0 1 0.107 -2.907s0.924 -0.295 3.02 1.128a10.402 10.402 0 0 1 5.503 0c2.102 -1.422 3.018 -1.128 3.018 -1.128 0.405 0.92 0.444 1.96 0.109 2.907a4.243 4.243 0 0 1 1.13 2.95c0 4.223 -2.569 5.15 -5.016 5.42a2.604 2.604 0 0 1 0.752 2.026v3.041c0 0.294 0.177 0.619 0.735 0.512a10.986 10.986 0 0 0 -3.48 -21.411Z"
-                          stroke-width="1"></path>
-                </svg>
-            </a>
-            <a href="https://x.com/RuneStoreG" aria-label="X" title="X">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                     class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" />
-                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                </svg>
-            </a>
-            <a href="https://www.instagram.com/runestoreofficial/" aria-label="Instagram" title="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
-                     class="icon icon-tabler icons-tabler-outline icon-tabler-brand-instagram">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" />
-                    <path d="M8.5 12a3.5 3.5 0 1 0 7 0a3.5 3.5 0 0 0 -7 0" />
-                    <path d="M17 7v.01" />
-                </svg>
-            </a>
-            <a href="https://youtube.com/@@runestoree?si=RTK1fZTM6eFtB2yQ" aria-label="YouTube" title="YouTube">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     id="Youtube-Clip-Logo--Streamline-Logos" height="24" width="24">
-                    <path fill="#FFFFFF" fill-rule="evenodd"
-                          d="M1.172 7.693A55.991 55.991 0 0 0 1 12c0 1.632 0.08 3.167 0.182 4.44 0.146 1.817 1.531 3.206 3.318 3.33 1.794 0.125 4.305 0.23 7.5 0.23 3.195 0 5.706 -0.105 7.5 -0.23 1.787 -0.124 3.172 -1.513 3.318 -3.33 0.102 -1.273 0.182 -2.808 0.182 -4.44 0 -1.576 -0.074 -3.06 -0.172 -4.307a3.727 3.727 0 0 0 -3.46 -3.46C17.59 4.107 15.164 4 12 4c-3.164 0 -5.591 0.107 -7.368 0.233a3.727 3.727 0 0 0 -3.46 3.46ZM15.5 12 10 9v6l5.5 -3Z"
-                          clip-rule="evenodd" stroke-width="1"></path>
-                </svg>
-            </a>
-        </div>
-    </div>
-    <div class="rune-footer-main">
-        <div class="rune-footer-about ">
-            <h3>Geleceğin oyun dünyasına hoş geldin.</h3>
-            <p>
-                Rune; bağımsız yapımlardan devasa bütçeli hitlere kadar binlerce oyunu tek bir çatı altında toplayan
-                yeni nesil dijital oyun platformudur. Kütüphaneni dilediğin gibi yönet, atölye desteğiyle oyunlarını
-                modla, arkadaşlarınla sesli sohbet et ve canlı topluluk pazaryerinde ticaret yap. Geliştiriciler
-                için adil bir pazar, oyuncular için kesintisiz bir deneyim sunuyoruz.
-            </p>
-        </div>
-        <div class="rune-footer-column">
-            <h3>Keşfet</h3>
-            <a asp-controller="Home" asp-action="Index" asp-fragment="all-games-heading">Popüler Oyunlar</a>
-            <a asp-controller="Home" asp-action="Index" asp-fragment="featured-games-heading">Öne Çıkanlar</a>
-            <a href="#">Çok Satanlar</a>
-            <a href="#">Yakında Gelecekler</a>
-            <a href="#">İndirimler & Fırsatlar</a>
-            <a href="#">Ücretsiz Oyunlar</a>
-        </div>
-        <div class="rune-footer-column">
-            <h3>Topluluk</h3>
-            <a href="#">Forumlar & Tartışmalar</a>
-            <a href="#">Topluluk Pazarı</a>
-            <a href="#">Atölye</a>
-            <a href="#">Etkinlikler & Turnuvalar</a>
-            <a href="#">Canlı Yayınlar</a>
-        </div>
-        <div class="rune-footer-column">
-            <h3>Rune hakkında</h3>
-            <a asp-controller="Support" asp-action="Index">Destek Merkezi</a>
-            <a href="#">Sunucu Durumu (Status)</a>
-            <a href="#">Güvenlik & Hile Bildirimi</a>
-            <a href="#">Hakkımızda</a>
-            <a href="#">Kariyer</a>
-        </div>
-        <div class="rune-footer-column">
-            <h3>Yasal</h3>
-            <a asp-controller="Home" asp-action="Privacy">Gizlilik politikası</a>
-            <a href="#">Kullanım koşulları</a>
-            <a href="#">Çerez politikası</a>
-            <a href="#">KVKK</a>
-        </div>
-    </div>
-    <div class="rune-footer-bottom">
-        <p>© 2026 Rune. Gösterilen tüm oyunlar, başlıklar ve ilgili görseller ilgili yayıncıların tescilli
-            markalarıdır.</p>
-
-            <div class="rune-footer-bottom-right">
-                <span>Vault Games Tarafından Geliştirilmiştir.</span>
-                <a asp-controller="Home" asp-action="Privacy">Gizlilik</a>
-                <a href="#">Koşullar</a>
-                <span>TR · Türkiye</span>
-
-                <button type="button" class="rune-back-to-top"
-                        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
-                    <span>↑</span>
-                    Yukarı çık
-                </button>
+    <footer class="rune-footer">
+        <div class="rune-footer-header">
+            <h2 class="rune-store">Rune Games Store</h2>
+            <div class="rune-footer-socials">
+                <a href="https://discord.gg/6xXKfcKhHJ" aria-label="Discord" title="Discord">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                         id="Discord--Streamline-Simple-Icons" height="24" width="24">
+                        <title>Discord</title>
+                        <path
+                        d="M20.317 4.3698a19.7913 19.7913 0 0 0 -4.8851 -1.5152 0.0741 0.0741 0 0 0 -0.0785 0.0371c-0.211 0.3753 -0.4447 0.8648 -0.6083 1.2495 -1.8447 -0.2762 -3.68 -0.2762 -5.4868 0 -0.1636 -0.3933 -0.4058 -0.8742 -0.6177 -1.2495a0.077 0.077 0 0 0 -0.0785 -0.037 19.7363 19.7363 0 0 0 -4.8852 1.515 0.0699 0.0699 0 0 0 -0.0321 0.0277C0.5334 9.0458 -0.319 13.5799 0.0992 18.0578a0.0824 0.0824 0 0 0 0.0312 0.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a0.0777 0.0777 0 0 0 0.0842 -0.0276c0.4616 -0.6304 0.8731 -1.2952 1.226 -1.9942a0.076 0.076 0 0 0 -0.0416 -0.1057c-0.6528 -0.2476 -1.2743 -0.5495 -1.8722 -0.8923a0.077 0.077 0 0 1 -0.0076 -0.1277c0.1258 -0.0943 0.2517 -0.1923 0.3718 -0.2914a0.0743 0.0743 0 0 1 0.0776 -0.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a0.0739 0.0739 0 0 1 0.0785 0.0095c0.1202 0.099 0.246 0.1981 0.3728 0.2924a0.077 0.077 0 0 1 -0.0066 0.1276 12.2986 12.2986 0 0 1 -1.873 0.8914 0.0766 0.0766 0 0 0 -0.0407 0.1067c0.3604 0.698 0.7719 1.3628 1.225 1.9932a0.076 0.076 0 0 0 0.0842 0.0286c1.961 -0.6067 3.9495 -1.5219 6.0023 -3.0294a0.077 0.077 0 0 0 0.0313 -0.0552c0.5004 -5.177 -0.8382 -9.6739 -3.5485 -13.6604a0.061 0.061 0 0 0 -0.0312 -0.0286zM8.02 15.3312c-1.1825 0 -2.1569 -1.0857 -2.1569 -2.419 0 -1.3332 0.9555 -2.4189 2.157 -2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332 -0.9555 2.4189 -2.1569 2.4189zm7.9748 0c-1.1825 0 -2.1569 -1.0857 -2.1569 -2.419 0 -1.3332 0.9554 -2.4189 2.1569 -2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332 -0.946 2.4189 -2.1568 2.4189Z"
+                        fill="#FFFFFF" stroke-width="1"></path>
+                    </svg>
+                </a>
+                <a href="https://github.com/LerwyN/Rune-Game-Platform" aria-label="GitHub" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         id="Github-Logo-2--Streamline-Logos" height="24" width="24">
+                        <path fill="#FFFFFF"
+                              d="M11.996 1.284a10.986 10.986 0 0 0 -3.472 21.412c0.548 0.095 0.722 -0.227 0.722 -0.517 0 -0.263 0.006 -0.991 0 -1.91 -3.057 0.662 -3.688 -1.448 -3.688 -1.448a2.907 2.907 0 0 0 -1.22 -1.607c-0.997 -0.682 0.075 -0.669 0.075 -0.669a2.307 2.307 0 0 1 1.683 1.131 2.34 2.34 0 0 0 3.197 0.914 2.34 2.34 0 0 1 0.697 -1.464c-2.439 -0.279 -5.004 -1.22 -5.004 -5.432a4.248 4.248 0 0 1 1.132 -2.948 3.942 3.942 0 0 1 0.107 -2.907s0.924 -0.295 3.02 1.128a10.402 10.402 0 0 1 5.503 0c2.102 -1.422 3.018 -1.128 3.018 -1.128 0.405 0.92 0.444 1.96 0.109 2.907a4.243 4.243 0 0 1 1.13 2.95c0 4.223 -2.569 5.15 -5.016 5.42a2.604 2.604 0 0 1 0.752 2.026v3.041c0 0.294 0.177 0.619 0.735 0.512a10.986 10.986 0 0 0 -3.48 -21.411Z"
+                              stroke-width="1"></path>
+                    </svg>
+                </a>
+                <a href="https://x.com/RuneStoreG" aria-label="X" title="X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" />
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/runestoreofficial/" aria-label="Instagram" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-brand-instagram">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10" />
+                        <path d="M8.5 12a3.5 3.5 0 1 0 7 0a3.5 3.5 0 0 0 -7 0" />
+                        <path d="M17 7v.01" />
+                    </svg>
+                </a>
+                <a href="https://youtube.com/@@runestoree?si=RTK1fZTM6eFtB2yQ" aria-label="YouTube" title="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         id="Youtube-Clip-Logo--Streamline-Logos" height="24" width="24">
+                        <path fill="#FFFFFF" fill-rule="evenodd"
+                              d="M1.172 7.693A55.991 55.991 0 0 0 1 12c0 1.632 0.08 3.167 0.182 4.44 0.146 1.817 1.531 3.206 3.318 3.33 1.794 0.125 4.305 0.23 7.5 0.23 3.195 0 5.706 -0.105 7.5 -0.23 1.787 -0.124 3.172 -1.513 3.318 -3.33 0.102 -1.273 0.182 -2.808 0.182 -4.44 0 -1.576 -0.074 -3.06 -0.172 -4.307a3.727 3.727 0 0 0 -3.46 -3.46C17.59 4.107 15.164 4 12 4c-3.164 0 -5.591 0.107 -7.368 0.233a3.727 3.727 0 0 0 -3.46 3.46ZM15.5 12 10 9v6l5.5 -3Z"
+                              clip-rule="evenodd" stroke-width="1"></path>
+                    </svg>
+                </a>
             </div>
         </div>
-    </footer>
-
-
-
-    @if (releaseNotes.Count > 0)
-    {
-        <div class="whats-new-overlay" id="whatsNewOverlay" hidden>
-            <section class="whats-new-dialog" id="whatsNewDialog" role="dialog" aria-modal="true"
-                     aria-labelledby="whatsNewTitle" aria-describedby="whatsNewDescription" data-release-version="@runeVersion"
-                     tabindex="-1">
-                <button class="whats-new-close" id="whatsNewClose" type="button" aria-label="Güncelleme penceresini kapat"
-                        title="Kapat">
-                    <span class="mb-2" aria-hidden="true">×</span>
-                </button>
-
-                <header class="whats-new-header">
-                    <span class="whats-new-eyebrow">Rune · Sürüm Notları</span>
-                    <h2 id="whatsNewTitle">Yenilikler</h2>
-                    <p id="whatsNewDescription">Eklenenler, düzeltilenler ve kaldırılanları buradan görebilirsiniz.</p>
-                </header>
-
-                <div class="whats-new-history">
-                    @foreach (var versionGroup in releaseNotes
-                        .GroupBy(note => note.Version)
-                        .OrderByDescending(group => group.Max(note => note.ReleaseDate)))
-                    {
-                        var releaseDate = versionGroup.Max(note => note.ReleaseDate);
-                        var releaseDateIso = releaseDate.ToString("yyyy-MM-dd");
-                        var releaseDateDisplay = releaseDate.ToString("d MMM yyyy",
-                System.Globalization.CultureInfo.GetCultureInfo("tr-TR"));
-                        <article class="whats-new-release">
-                            <header class="whats-new-release-header">
-                                <h3>@versionGroup.Key</h3>
-                                <time datetime="@releaseDateIso">@releaseDateDisplay</time>
-                            </header>
-
-                            <div class="whats-new-categories">
-                                @foreach (var category in Enum.GetValues<RUNE.Models.ReleaseNotes.ReleaseNoteCategory>())
-                                {
-                                    var categoryNotes = versionGroup
-                                        .Where(note => note.Category == category)
-                                        .OrderBy(note => note.DisplayOrder)
-                                        .ToList();
-                                    if (categoryNotes.Count == 0)
-                                    {
-                                        continue;
-                                    }
-
-                                    var categoryLabel = category switch
-                                    {
-                                        RUNE.Models.ReleaseNotes.ReleaseNoteCategory.New => "Yeni",
-                                        RUNE.Models.ReleaseNotes.ReleaseNoteCategory.Updated => "Güncellendi",
-                                        RUNE.Models.ReleaseNotes.ReleaseNoteCategory.Removed => "Kaldırıldı",
-                                        _ => category.ToString()
-                                    };
-                                    <section class="whats-new-category"
-                                             data-update-category="@category.ToString().ToLowerInvariant()">
-                                        <h4><span class="whats-new-label">@categoryLabel</span></h4>
-                                        <ul>
-                                            @foreach (var note in categoryNotes)
-                                            {
-                                                <li>@note.Description</li>
-                                            }
-                                        </ul>
-                                    </section>
-                                }
-                            </div>
-                        </article>
-                    }
-                </div>
-            </section>
+        <div class="rune-footer-main">
+            <div class="rune-footer-about ">
+                <h3>Geleceğin oyun dünyasına hoş geldin.</h3>
+                <p>
+                    Rune; bağımsız yapımlardan devasa bütçeli hitlere kadar binlerce oyunu tek bir çatı altında toplayan
+                    yeni nesil dijital oyun platformudur. Kütüphaneni dilediğin gibi yönet, atölye desteğiyle oyunlarını
+                    modla, arkadaşlarınla sesli sohbet et ve canlı topluluk pazaryerinde ticaret yap. Geliştiriciler
+                    için adil bir pazar, oyuncular için kesintisiz bir deneyim sunuyoruz.
+                </p>
+            </div>
+            <div class="rune-footer-column">
+                <h3>Keşfet</h3>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="all-games-heading">Popüler Oyunlar</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="featured-games-heading">Öne Çıkanlar</a>
+                <a href="#">Çok Satanlar</a>
+                <a href="#">Yakında Gelecekler</a>
+                <a href="#">İndirimler & Fırsatlar</a>
+                <a href="#">Ücretsiz Oyunlar</a>
+            </div>
+            <div class="rune-footer-column">
+                <h3>Topluluk</h3>
+                <a href="#">Forumlar & Tartışmalar</a>
+                <a href="#">Topluluk Pazarı</a>
+                <a href="#">Atölye</a>
+                <a href="#">Etkinlikler & Turnuvalar</a>
+                <a href="#">Canlı Yayınlar</a>
+            </div>
+            <div class="rune-footer-column">
+                <h3>Rune hakkında</h3>
+                <a asp-controller="Support" asp-action="Index">Destek Merkezi</a>
+                <a href="#">Sunucu Durumu (Status)</a>
+                <a href="#">Güvenlik & Hile Bildirimi</a>
+                <a href="#">Hakkımızda</a>
+                <a href="#">Kariyer</a>
+            </div>
+            <div class="rune-footer-column">
+                <h3>Yasal</h3>
+                <a asp-controller="Home" asp-action="Privacy">Gizlilik politikası</a>
+                <a href="#">Kullanım koşulları</a>
+                <a href="#">Çerez politikası</a>
+                <a href="#">KVKK</a>
+            </div>
         </div>
-    }
+        <div class="rune-footer-bottom">
+            <p>© 2026 Rune. Gösterilen tüm oyunlar, başlıklar ve ilgili görseller ilgili yayıncıların tescilli
+                markalarıdır.</p>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+                <div class="rune-footer-bottom-right">
+                    <span>Vault Games Tarafından Geliştirilmiştir.</span>
+                    <a asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                    <a href="#">Koşullar</a>
+                    <span>TR · Türkiye</span>
+
+                    <button type="button" class="rune-back-to-top"
+                            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+                        <span>↑</span>
+                        Yukarı çık
+                    </button>
+                </div>
+            </div>
+        </footer>
+
+
+
+        @if (releaseNotes.Count > 0)
+        {
+            <div class="whats-new-overlay" id="whatsNewOverlay" hidden>
+                <section class="whats-new-dialog" id="whatsNewDialog" role="dialog" aria-modal="true"
+                         aria-labelledby="whatsNewTitle" aria-describedby="whatsNewDescription" data-release-version="@runeVersion"
+                        tabindex="-1">
+                    <button class="whats-new-close" id="whatsNewClose" type="button" aria-label="Güncelleme penceresini kapat"
+                            title="Kapat">
+                        <span class="mb-1" aria-hidden="true">
+                            <svg class="fw-bold" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M18 6l-12 12" />
+                            <path d="M6 6l12 12" />
+                        </svg>
+                        </span>
+                    </button>
+
+                    <header class="whats-new-header">
+                        <span class="whats-new-eyebrow">Rune · Sürüm Notları</span>
+                        <h2 id="whatsNewTitle">Yenilikler</h2>
+                        <p id="whatsNewDescription">Eklenenler, düzeltilenler ve kaldırılanları buradan görebilirsiniz.</p>
+                    </header>
+
+                    <p class="text-center mt-3">Sistemi bir üst seviyeye taşıyoruz. Güncelleme notları hazırlanıyor, çok yakında görüşmek üzere.</p>
+                </section>
+            </div>
+        }
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
 
 </html>

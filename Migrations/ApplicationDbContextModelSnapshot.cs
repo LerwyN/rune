@@ -39,13 +39,13 @@ namespace RUNE.Migrations
 
             modelBuilder.Entity("GameTag", b =>
                 {
-                    b.Property<int>("GameId")
+                    b.Property<int>("GamesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TagId")
                         .HasColumnType("integer");
 
-                    b.HasKey("GameId", "TagId");
+                    b.HasKey("GamesId", "TagId");
 
                     b.HasIndex("TagId");
 
@@ -276,6 +276,76 @@ namespace RUNE.Migrations
                     b.ToTable("CartItems");
                 });
 
+            modelBuilder.Entity("RUNE.Models.Entities.GameImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ImageType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaSource")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameImages");
+                });
+
+            modelBuilder.Entity("RUNE.Models.Entities.GameVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MediaSource")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VideoType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameVideos");
+                });
+
             modelBuilder.Entity("RUNE.Models.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -319,11 +389,9 @@ namespace RUNE.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BannerImagePath")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CoverImagePath")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
@@ -414,7 +482,7 @@ namespace RUNE.Migrations
                 {
                     b.HasOne("RUNE.Models.Game", null)
                         .WithMany()
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -485,6 +553,35 @@ namespace RUNE.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("RUNE.Models.Entities.GameImage", b =>
+                {
+                    b.HasOne("RUNE.Models.Game", "Game")
+                        .WithMany("Images")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("RUNE.Models.Entities.GameVideo", b =>
+                {
+                    b.HasOne("RUNE.Models.Game", "Game")
+                        .WithMany("Videos")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("RUNE.Models.Game", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Videos");
                 });
 #pragma warning restore 612, 618
         }

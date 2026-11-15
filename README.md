@@ -48,7 +48,7 @@ Developed by **Vault Games**.
 ---
 
 <p align="center">
-  **Rune — Your Gateway to the World of Games.**
+  Rune — Your Gateway to the World of Games.
 </p>
 
 <p align="center">

@@ -148,17 +148,16 @@
                                     <path d="M18 7v14l-6 -4l-6 4v-14a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4" />
                                 </svg>
                             </button>
-                            <div class="catalog-game-info">
+                            <div class="catalog-game-info fw-bold">
                                 <h3>@game.Title</h3>
                                 @if (game.Price > 0)
                                 {
-                                    <span class="catalog-game-price">₺ @game.Price.ToString("N2",
-                                                                                                                                                    System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))</span>
-                                    }
+                                    @(game.Price == 0 ? "Ücretsiz" : game.Price.ToString("C0"))
+                                }
                                 else
-                                    {
-                                        <span class="catalog-game-price catalog-game-price-pending">Fiyat yakında</span>
-                                    }
+                                {
+                                    <span class="catalog-game-price catalog-game-price-pending">Fiyat yakında</span>
+                                }
                                 </div>
                             </article>
                         }
@@ -205,28 +204,27 @@
                                         aria-label="İstek listesine ekle: @game.Title" aria-pressed="false"
                                         title="İstek listesine ekle">
                                     <img src="https://img.icons8.com/?size=100&id=qePzjQLJYgjF&format=png&color=ffffff" alt=""
-                                         aria-hidden="true" loading="lazy" />
+                                        aria-hidden="true" loading="lazy" />
                                 </button>
-                                <div class="catalog-game-info">
+                                <div class="catalog-game-info fw-bold"">
                                     <h3>@game.Title</h3>
                                     @if (game.Price > 0)
                                     {
-                                        <span class="catalog-game-price">₺ @game.Price.ToString("N2",
-                                                                                                                                                                System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))</span>
-                                        }
-                                else
-                                        {
-                                            <span class="catalog-game-price catalog-game-price-pending">Fiyat yakında</span>
-                                        }
+                                        @(game.Price == 0 ? "Ücretsiz" : game.Price.ToString("C0"))
+                                    }
+                                    else
+                                    {
+                                        <span class="catalog-game-price catalog-game-price-pending">Fiyat yakında</span>
+                                    }
                                     </div>
                                 </article>
                             }
                         </div>
-                    }
-            else
-                    {
-                        <p class="catalog-empty">Mağazada henüz yayımlanmış oyun yok.</p>
-                    }
+                }
+                else
+                {
+                    <p class="catalog-empty">Mağazada henüz yayımlanmış oyun yok.</p>
+                }
                     <p id="storeSearchEmpty" class="catalog-empty" aria-live="polite" hidden>Aramana uygun oyun bulunamadı.</p>
                 </section>
             </main>

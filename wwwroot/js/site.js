@@ -171,9 +171,11 @@ if (navMiddle && activePill) {
   }
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
-      const href = link.getAttribute("href");
-      if (!href || href === "#") return;
-      if (link.classList.contains("active")) return;
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return;
+    // Yeni sekmede açılacak bağlantılara müdahale etme.
+    if (link.target === "_blank") return;
+    if (link.classList.contains("active")) return;
       event.preventDefault();
       navLinks.forEach((navLink) => {
         navLink.classList.remove("active");

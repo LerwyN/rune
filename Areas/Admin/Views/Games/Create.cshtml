@@ -1,0 +1,791 @@
+
+@{
+    ViewData["Title"] = "Yeni Oyun Ekle";
+}
+
+<style>
+    .create-page {
+        color: #f5f5f5;
+        max-width: 1150px;
+        margin: auto;
+    }
+
+    .create-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        gap: 15px;
+    }
+
+    .create-header h1 {
+        font-size: 27px;
+        font-weight: 750;
+        margin: 0 0 8px;
+    }
+
+    .create-header p {
+        color: #888;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .back-link {
+        color: #aaa;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        color: #fff;
+    }
+
+    .create-form {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    .form-section {
+        background: #141414;
+        border: 1px solid #292929;
+        border-radius: 10px;
+        padding: 27px;
+    }
+
+    .section-header {
+        margin-bottom: 25px;
+        padding-bottom: 17px;
+        border-bottom: 1px solid #292929;
+    }
+
+    .section-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 0 7px;
+    }
+
+    .section-header p {
+        font-size: 12px;
+        color: #888;
+        margin: 0;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        min-width: 0;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label,
+    .field-label {
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .form-group small,
+    .field-help {
+        color: #777;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        min-width: 0;
+        padding: 13px 14px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+        transition: .2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #888;
+        background: #222;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #707070;
+    }
+
+    .form-group textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .form-group select option {
+        background: #1e1e1e;
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .media-card {
+        min-width: 0;
+        padding: 19px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 9px;
+    }
+
+    .media-card h3 {
+        font-size: 13px;
+        margin: 0 0 7px;
+    }
+
+    .media-card > p {
+        color: #888;
+        font-size: 11px;
+        line-height: 1.6;
+        margin: 0 0 17px;
+    }
+
+    .upload-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 125px;
+        padding: 18px;
+        margin-bottom: 14px;
+        border: 1px dashed #555;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .upload-area:hover {
+        border-color: #aaa;
+        background: #202020;
+    }
+
+    .upload-area strong {
+        color: #ddd;
+        font-size: 12px;
+        margin-bottom: 7px;
+    }
+
+    .upload-area span {
+        color: #777;
+        font-size: 10px;
+    }
+
+    .upload-area input {
+        display: none;
+    }
+
+    .media-url {
+        margin-top: 12px;
+    }
+
+    .media-url label {
+        display: block;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .media-url input,
+    .media-url textarea {
+        width: 100%;
+        padding: 12px;
+        background: #202020;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 12px;
+        outline: none;
+    }
+
+    .media-url input:focus,
+    .media-url textarea:focus {
+        border-color: #888;
+    }
+
+    .media-url textarea {
+        min-height: 85px;
+        resize: vertical;
+    }
+
+    .media-note {
+        margin-top: 12px;
+        padding: 12px;
+        background: #202020;
+        border-radius: 6px;
+        color: #888;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .system-requirements {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .requirement-card {
+        padding: 18px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 8px;
+    }
+
+    .requirement-card h3 {
+        font-size: 13px;
+        margin: 0 0 18px;
+    }
+
+    .requirement-card .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 20px 0 35px;
+    }
+
+    .form-footer p {
+        color: #777;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .footer-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .form-button {
+        padding: 13px 20px;
+        border: 0;
+        border-radius: 7px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .cancel-button {
+        background: #292929;
+        color: #ddd;
+    }
+
+    .cancel-button:hover {
+        background: #383838;
+        color: #fff;
+    }
+
+    .save-button {
+        background: #fff;
+        color: #111;
+    }
+
+    .save-button:hover {
+        background: #ddd;
+    }
+
+    @@media (max-width: 750px) {
+        .form-grid,
+        .media-grid,
+        .system-requirements {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+        .create-header,
+        .form-footer {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .form-section {
+            padding: 19px;
+        }
+
+        .footer-buttons {
+            width: 100%;
+        }
+
+        .form-button {
+            flex: 1;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="create-page">
+
+    <div class="create-header">
+        <div>
+            <h1>Yeni Oyun Ekle</h1>
+            <p>Rune mağazasına yeni bir oyun ekle ve içeriklerini düzenle.</p>
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="Games"
+           asp-action="Index"
+           class="back-link">
+            ← Oyunlara dön
+        </a>
+    </div>
+
+    <form asp-area="Admin"
+          asp-controller="Games"
+          asp-action="Create"
+          method="post"
+          enctype="multipart/form-data"
+          class="create-form">
+
+        <!-- Genel Bilgiler -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Genel Bilgiler</h2>
+                <p>Oyunun temel bilgilerini buradan tanımla.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="Title">Oyun Adı *</label>
+                    <input type="text"
+                           id="Title"
+                           name="Title"
+                           placeholder="Örn. Cyberpunk 2077"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Slug">Oyun Slug</label>
+                    <input type="text"
+                           id="Slug"
+                           name="Slug"
+                           placeholder="cyberpunk-2077" />
+                    <small>Oyunun mağaza URL'sinde kullanılacak.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Developer">Geliştirici *</label>
+                    <input type="text"
+                           id="Developer"
+                           name="Developer"
+                           placeholder="Geliştirici adı"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Publisher">Yayıncı *</label>
+                    <input type="text"
+                           id="Publisher"
+                           name="Publisher"
+                           placeholder="Yayıncı adı"
+                           required />
+                </div>
+
+                <div class="form-group full">
+                    <label for="Description">Oyun Açıklaması *</label>
+                    <textarea id="Description"
+                              name="Description"
+                              placeholder="Oyunun hikayesini, özelliklerini ve içeriğini anlat..."
+                              required></textarea>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Fiyat ve çıkış tarihi -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Fiyat ve Yayın Bilgileri</h2>
+                <p>Fiyatlandırma ve mağazadaki yayın durumunu belirle.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="Price">Fiyat (₺) *</label>
+                    <input type="number"
+                           id="Price"
+                           name="Price"
+                           step="0.01"
+                           min="0"
+                           placeholder="0.00"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label for="ReleaseDate">Çıkış Tarihi</label>
+                    <input type="date"
+                           id="ReleaseDate"
+                           name="ReleaseDate" />
+                </div>
+
+                <div class="form-group">
+                    <label for="DisplayOrder">Görüntülenme Sırası</label>
+                    <input type="number"
+                           id="DisplayOrder"
+                           name="DisplayOrder"
+                           min="0"
+                           value="0" />
+                </div>
+
+                <div class="form-group">
+                    <label for="IsPublished">Yayın Durumu</label>
+                    <select id="IsPublished" name="IsPublished">
+                        <option value="false">Taslak</option>
+                        <option value="true">Yayında</option>
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kategori ve özellikler-->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Kategoriler ve Oyun Özellikleri</h2>
+                <p>Oyunun türünü, platformlarını ve desteklediği özellikleri belirle.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="GenreIds">Oyun Türleri</label>
+                    <select id="GenreIds" name="GenreIds" multiple size="5">
+                        <option disabled>Türler backend bağlantısından sonra yüklenecek</option>
+                    </select>
+                    <small>Birden fazla tür seçilebilir.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="TagNames">Etiketler</label>
+                    <input type="text"
+                           id="TagNames"
+                           name="TagNames"
+                           placeholder="Açık dünya, RPG, Aksiyon..." />
+                    <small>Etiketleri virgülle ayır.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Platforms">Platformlar</label>
+                    <select id="Platforms" name="Platforms" multiple size="4">
+                        <option value="PC">PC</option>
+                        <option value="PlayStation 5">PlayStation 5</option>
+                        <option value="Xbox Series X|S">Xbox Series X|S</option>
+                        <option value="Nintendo Switch">Nintendo Switch</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Languages">Desteklenen Diller</label>
+                    <textarea id="Languages"
+                              name="Languages"
+                              placeholder="Türkçe, İngilizce, Almanca..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="PlayerModes">Oyuncu Modları</label>
+                    <input type="text"
+                           id="PlayerModes"
+                           name="PlayerModes"
+                           placeholder="Tek oyunculu, Çok oyunculu..." />
+                </div>
+
+                <div class="form-group">
+                    <label for="ControllerSupport">Kontrolcü Desteği</label>
+                    <select id="ControllerSupport" name="ControllerSupport">
+                        <option value="">Seçiniz</option>
+                        <option value="Full">Tam destek</option>
+                        <option value="Partial">Kısmi destek</option>
+                        <option value="None">Desteklenmiyor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="AgeRating">Yaş Sınırı</label>
+                    <select id="AgeRating" name="AgeRating">
+                        <option value="">Seçiniz</option>
+                        <option value="PEGI 3">PEGI 3</option>
+                        <option value="PEGI 7">PEGI 7</option>
+                        <option value="PEGI 12">PEGI 12</option>
+                        <option value="PEGI 16">PEGI 16</option>
+                        <option value="PEGI 18">PEGI 18</option>
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kapak ve Banner -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Mağaza Görselleri</h2>
+                <p>Oyunun mağaza kartında ve detay sayfasında kullanılacak görseller.</p>
+            </div>
+
+            <div class="media-grid">
+
+                <div class="media-card">
+                    <h3>Kapak Görseli</h3>
+                    <p>Oyunun mağaza kartında ve kütüphanede kullanılacak ana görsel.</p>
+
+                    <label class="upload-area">
+                        <strong>Kapak görseli yükle</strong>
+                        <span>JPG, PNG veya WEBP</span>
+                        <input type="file"
+                               name="CoverImageFile"
+                               accept="image/jpeg,image/png,image/webp" />
+                    </label>
+
+                    <div class="media-url">
+                        <label for="CoverImagePath">Veya görsel URL'si</label>
+                        <input type="url"
+                               id="CoverImagePath"
+                               name="CoverImagePath"
+                               placeholder="https://example.com/cover.jpg" />
+                    </div>
+                </div>
+
+                <div class="media-card">
+                    <h3>Banner Görseli</h3>
+                    <p>Oyunun detay sayfasında geniş alanda kullanılacak görsel.</p>
+
+                    <label class="upload-area">
+                        <strong>Banner görseli yükle</strong>
+                        <span>JPG, PNG veya WEBP</span>
+                        <input type="file"
+                               name="BannerImageFile"
+                               accept="image/jpeg,image/png,image/webp" />
+                    </label>
+
+                    <div class="media-url">
+                        <label for="BannerImagePath">Veya görsel URL'si</label>
+                        <input type="url"
+                               id="BannerImagePath"
+                               name="BannerImagePath"
+                               placeholder="https://example.com/banner.jpg" />
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Galeri -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Ekran Görüntüleri Galerisi</h2>
+                <p>Oyunun detay sayfasında ayrı ayrı gösterilecek ekran görüntüleri.</p>
+            </div>
+
+            <div class="media-card">
+
+                <label class="upload-area">
+                    <strong>Birden fazla ekran görüntüsü seç</strong>
+                    <span>JPG, PNG veya WEBP • Çoklu dosya seçimi</span>
+                    <input type="file"
+                           name="GalleryImages"
+                           accept="image/jpeg,image/png,image/webp"
+                           multiple />
+                </label>
+
+                <div class="media-url">
+                    <label for="GalleryImageUrls">Görsel URL'leri</label>
+                    <textarea id="GalleryImageUrls"
+                              name="GalleryImageUrls"
+                              placeholder="Her satıra bir görsel URL'si gir..."></textarea>
+                </div>
+
+                <div class="media-note">
+                    Yüklenen ve URL ile eklenen her görsel, oyunun galerisine ayrı bir kayıt olarak eklenecek.
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Videolar -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Fragman ve Videolar</h2>
+                <p>Oyunun fragmanlarını ve tanıtım videolarını ayrı ayrı ekle.</p>
+            </div>
+
+            <div class="media-grid">
+
+                <div class="media-card">
+                    <h3>Video Yükle</h3>
+                    <p>Oyuna ait video dosyasını yükle.</p>
+
+                    <label class="upload-area">
+                        <strong>Video dosyası seç</strong>
+                        <span>MP4 veya WEBM</span>
+                        <input type="file"
+                               name="TrailerFiles"
+                               accept="video/mp4,video/webm"
+                               multiple />
+                    </label>
+                </div>
+
+                <div class="media-card">
+                    <h3>Video Bağlantısı</h3>
+                    <p>YouTube veya desteklenen video bağlantısını kullan.</p>
+
+                    <div class="media-url">
+                        <label for="TrailerUrls">Video URL'leri</label>
+                        <textarea id="TrailerUrls"
+                                  name="TrailerUrls"
+                                  placeholder="Her satıra bir video URL'si gir..."></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Sistem Gereksimleri -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Sistem Gereksinimleri</h2>
+                <p>Bilgisayar için minimum ve önerilen sistem özelliklerini gir.</p>
+            </div>
+
+            <div class="system-requirements">
+
+                <div class="requirement-card">
+                    <h3>Minimum Gereksinimler</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="MinimumOS">İşletim Sistemi</label>
+                            <input type="text" id="MinimumOS"
+                                   name="MinimumOS" placeholder="Windows 10" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MinimumProcessor">İşlemci</label>
+                            <input type="text" id="MinimumProcessor"
+                                   name="MinimumProcessor" placeholder="Intel Core i5..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MinimumMemory">Bellek</label>
+                            <input type="text" id="MinimumMemory"
+                                   name="MinimumMemory" placeholder="8 GB RAM" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MinimumGraphics">Ekran Kartı</label>
+                            <input type="text" id="MinimumGraphics"
+                                   name="MinimumGraphics" placeholder="GTX 1060..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MinimumStorage">Depolama</label>
+                            <input type="text" id="MinimumStorage"
+                                   name="MinimumStorage" placeholder="70 GB" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-card">
+                    <h3>Önerilen Gereksinimler</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="RecommendedOS">İşletim Sistemi</label>
+                            <input type="text" id="RecommendedOS"
+                                   name="RecommendedOS" placeholder="Windows 11" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RecommendedProcessor">İşlemci</label>
+                            <input type="text" id="RecommendedProcessor"
+                                   name="RecommendedProcessor" placeholder="Intel Core i7..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RecommendedMemory">Bellek</label>
+                            <input type="text" id="RecommendedMemory"
+                                   name="RecommendedMemory" placeholder="16 GB RAM" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RecommendedGraphics">Ekran Kartı</label>
+                            <input type="text" id="RecommendedGraphics"
+                                   name="RecommendedGraphics" placeholder="RTX 3070..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RecommendedStorage">Depolama</label>
+                            <input type="text" id="RecommendedStorage"
+                                   name="RecommendedStorage" placeholder="70 GB SSD" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Form Buttonları -->
+        <div class="form-footer">
+
+            <p>* işaretli alanların doldurulması zorunludur.</p>
+
+            <div class="footer-buttons">
+                <a asp-area="Admin"
+                   asp-controller="Games"
+                   asp-action="Index"
+                   class="form-button cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit" class="form-button save-button">
+                    Oyunu Kaydet
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+</div>

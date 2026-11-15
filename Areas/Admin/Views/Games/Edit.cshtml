@@ -1,0 +1,601 @@
+
+@model RUNE.Models.Game
+@{
+    ViewData["Title"] = "Oyunu Düzenle";
+}
+
+<style>
+    .create-page {
+        max-width: 1150px;
+        margin: auto;
+        color: #f5f5f5;
+    }
+
+    .create-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .create-header h1 {
+        font-size: 27px;
+        font-weight: 750;
+        margin: 0 0 8px;
+    }
+
+    .create-header p {
+        color: #888;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .back-link {
+        color: #aaa;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    .form-section {
+        background: #141414;
+        border: 1px solid #292929;
+        border-radius: 10px;
+        padding: 27px;
+        margin-bottom: 22px;
+    }
+
+    .section-header {
+        margin-bottom: 25px;
+        padding-bottom: 17px;
+        border-bottom: 1px solid #292929;
+    }
+
+    .section-header h2 {
+        font-size: 16px;
+        margin: 0 0 7px;
+    }
+
+    .section-header p {
+        color: #888;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        min-width: 0;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 13px 14px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #888;
+    }
+
+    .form-group textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .media-card {
+        min-width: 0;
+        padding: 19px;
+        background: #191919;
+        border: 1px solid #303030;
+        border-radius: 9px;
+    }
+
+    .media-card h3 {
+        font-size: 13px;
+        margin: 0 0 15px;
+    }
+
+    .current-image {
+        width: 100%;
+        max-height: 190px;
+        object-fit: contain;
+        background: #101010;
+        border: 1px solid #333;
+        border-radius: 7px;
+        margin-bottom: 15px;
+    }
+
+    .current-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+
+    .gallery-item {
+        padding: 8px;
+        background: #202020;
+        border: 1px solid #333;
+        border-radius: 7px;
+        min-width: 0;
+    }
+
+    .gallery-item img {
+        display: block;
+        width: 100%;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 8px;
+    }
+
+    .gallery-item span {
+        color: #aaa;
+        font-size: 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .media-input {
+        margin-top: 14px;
+    }
+
+    .media-input label {
+        display: block;
+        margin-bottom: 8px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .media-input input,
+    .media-input textarea {
+        width: 100%;
+        padding: 12px;
+        background: #202020;
+        border: 1px solid #333;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    .media-input textarea {
+        min-height: 85px;
+        resize: vertical;
+    }
+
+    .genre-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .genre-item {
+        padding: 8px 12px;
+        background: #292929;
+        border: 1px solid #383838;
+        border-radius: 6px;
+        color: #ddd;
+        font-size: 11px;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0 35px;
+    }
+
+    .form-footer p {
+        color: #777;
+        font-size: 11px;
+    }
+
+    .footer-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .form-button {
+        padding: 13px 20px;
+        border: none;
+        border-radius: 7px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .cancel-button {
+        background: #292929;
+        color: #ddd;
+    }
+
+    .save-button {
+        background: #fff;
+        color: #111;
+    }
+
+    .save-button:hover {
+        background: #ddd;
+    }
+
+    @@media (max-width: 750px) {
+        .form-grid,
+        .media-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+        .create-header,
+        .form-footer {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .form-section {
+            padding: 19px;
+        }
+
+        .footer-buttons {
+            width: 100%;
+        }
+
+        .form-button {
+            flex: 1;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="create-page">
+
+    <div class="create-header">
+        <div>
+            <h1>Oyunu Düzenle</h1>
+            <p>@Model.Title oyununa ait bilgileri güncelle.</p>
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="Games"
+           asp-action="Index"
+           class="back-link">
+            ← Oyunlara dön
+        </a>
+    </div>
+
+    <form asp-area="Admin"
+          asp-controller="Games"
+          asp-action="Edit"
+          asp-route-id="@Model.Id"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="Id" />
+
+        <!-- Genel bilgiler -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Genel Bilgiler</h2>
+                <p>Oyunun temel bilgilerini düzenle.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label asp-for="Title">Oyun Adı</label>
+                    <input asp-for="Title" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Slug">Slug</label>
+                    <input asp-for="Slug" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Developer">Geliştirici</label>
+                    <input asp-for="Developer" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Publisher">Yayıncı</label>
+                    <input asp-for="Publisher" />
+                </div>
+
+                <div class="form-group full">
+                    <label asp-for="Description">Oyun Açıklaması</label>
+                    <textarea asp-for="Description"></textarea>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Fiyat ve Yayın -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Fiyat ve Yayın Bilgileri</h2>
+                <p>Oyunun fiyatını ve yayın durumunu düzenle.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label asp-for="Price">Fiyat (₺)</label>
+                    <input asp-for="Price" type="number" step="0.01" min="0" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ReleaseDate">Çıkış Tarihi</label>
+                    <input asp-for="ReleaseDate" type="date" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DisplayOrder">Görüntülenme Sırası</label>
+                    <input asp-for="DisplayOrder" type="number" min="0" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IsPublished">Yayın Durumu</label>
+                    <select asp-for="IsPublished">
+                        <option value="false">Taslak</option>
+                        <option value="true">Yayında</option>
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Türler -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Oyun Türleri</h2>
+                <p>Oyuna atanmış mevcut türler.</p>
+            </div>
+
+            <div class="genre-list">
+                @if (Model.Genre.Any())
+                {
+                    @foreach (var genre in Model.Genre)
+                    {
+                        <span class="genre-item">@genre.Name</span>
+                    }
+                }
+                else
+                {
+                    <span style="color:#888;font-size:12px;">
+                        Henüz tür atanmamış.
+                    </span>
+                }
+            </div>
+
+        </section>
+
+        <!-- Kapak ve Banner -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Mağaza Görselleri</h2>
+                <p>Mevcut kapak ve banner görsellerini incele veya değiştir.</p>
+            </div>
+
+            <div class="media-grid">
+
+                <div class="media-card">
+                    <h3>Kapak Görseli</h3>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.CoverImagePath))
+                    {
+                        <img src="@Model.CoverImagePath"
+                             class="current-image"
+                             alt="Mevcut kapak görseli" />
+                    }
+                    else
+                    {
+                        <p style="color:#888;font-size:12px;">
+                            Kapak görseli bulunmuyor.
+                        </p>
+                    }
+
+                    <div class="media-input">
+                        <label for="CoverImageFile">Yeni kapak dosyası</label>
+                        <input type="file"
+                               id="CoverImageFile"
+                               name="CoverImageFile"
+                               accept="image/jpeg,image/png,image/webp" />
+                    </div>
+
+                    <div class="media-input">
+                        <label asp-for="CoverImagePath">Kapak URL</label>
+                        <input asp-for="CoverImagePath" type="url" />
+                    </div>
+                </div>
+
+                <div class="media-card">
+                    <h3>Banner Görseli</h3>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.BannerImagePath))
+                    {
+                        <img src="@Model.BannerImagePath"
+                             class="current-image"
+                             alt="Mevcut banner görseli" />
+                    }
+                    else
+                    {
+                        <p style="color:#888;font-size:12px;">
+                            Banner görseli bulunmuyor.
+                        </p>
+                    }
+
+                    <div class="media-input">
+                        <label for="BannerImageFile">Yeni banner dosyası</label>
+                        <input type="file"
+                               id="BannerImageFile"
+                               name="BannerImageFile"
+                               accept="image/jpeg,image/png,image/webp" />
+                    </div>
+
+                    <div class="media-input">
+                        <label asp-for="BannerImagePath">Banner URL</label>
+                        <input asp-for="BannerImagePath" type="url" />
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Galeri -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Ekran Görüntüleri</h2>
+                <p>Oyuna ait mevcut galeri görselleri.</p>
+            </div>
+
+            @if (Model.Images.Any())
+            {
+                <div class="current-gallery">
+                    @foreach (var image in Model.Images.OrderBy(x => x.DisplayOrder))
+                    {
+                        <div class="gallery-item">
+                            <img src="@image.ImageUrl" alt="Oyun ekran görüntüsü" />
+                            <span>@image.ImageType</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p style="color:#888;font-size:12px;">
+                    Henüz galeri görseli eklenmemiş.
+                </p>
+            }
+
+            <div class="media-input">
+                <label for="GalleryImages">Yeni ekran görüntüleri</label>
+                <input type="file"
+                       id="GalleryImages"
+                       name="GalleryImages"
+                       accept="image/jpeg,image/png,image/webp"
+                       multiple />
+            </div>
+
+            <div class="media-input">
+                <label for="GalleryImageUrls">Yeni görsel URL'leri</label>
+                <textarea id="GalleryImageUrls"
+                          name="GalleryImageUrls"
+                          placeholder="Her satıra bir görsel URL'si gir."></textarea>
+            </div>
+
+        </section>
+
+        <!-- Videolar -->
+        <section class="form-section">
+
+            <div class="section-header">
+                <h2>Fragman ve Videolar</h2>
+                <p>Oyuna ait mevcut video kayıtları.</p>
+            </div>
+
+            @if (Model.Videos.Any())
+            {
+                @foreach (var video in Model.Videos.OrderBy(x => x.DisplayOrder))
+                {
+                    <div class="media-card" style="margin-bottom:12px;">
+                        <h3>@video.Title</h3>
+                        <a href="@video.VideoUrl"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="color:#aaa;font-size:12px;">
+                            Videoyu görüntüle
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <p style="color:#888;font-size:12px;">
+                    Henüz fragman veya video eklenmemiş.
+                </p>
+            }
+
+            <div class="media-grid" style="margin-top:20px;">
+
+                <div class="media-card">
+                    <h3>Yeni Video Dosyaları</h3>
+                    <input type="file"
+                           name="TrailerFiles"
+                           accept="video/mp4,video/webm"
+                           multiple />
+                </div>
+
+                <div class="media-card">
+                    <h3>Yeni Video URL'leri</h3>
+                    <textarea name="TrailerUrls"
+                              placeholder="Her satıra bir video URL'si gir."></textarea>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Buttonlar -->
+        <div class="form-footer">
+
+            <p>Değişikliklerini kaydetmeyi unutma.</p>
+
+            <div class="footer-buttons">
+
+                <a asp-area="Admin"
+                   asp-controller="Games"
+                   asp-action="Index"
+                   class="form-button cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit" class="form-button save-button">
+                    Değişiklikleri Kaydet
+                </button>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
